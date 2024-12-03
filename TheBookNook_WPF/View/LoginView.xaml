@@ -11,8 +11,38 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        MouseDown="Window_MouseDown">
-    <Grid>
+        MouseDown="Window_MouseDown"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Border CornerRadius="25">
+        <Border.Background>
+            <ImageBrush ImageSource="/Resources/LoginBackGround.jpeg"
+                        Stretch="none"/>
+        </Border.Background>
+        <Border CornerRadius="25"
+                BorderThickness="5"
+                Opacity="0.85">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1"
+                                     EndPoint="1,0">
+                    <GradientStop Color="#2F4550"
+                                  Offset="0" />
+                    <GradientStop Color="#586F7C"
+                                  Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0"
+                                     EndPoint="1,1">
+                    <GradientStop Color="#586F7C"
+                                  Offset="0" />
+                    <GradientStop Color="#B8DBD9"
+                                  Offset="0.5" />
+                    <GradientStop Color="#F4F4F9"
+                                  Offset="1" />
+                </LinearGradientBrush>
+            </Border.BorderBrush>
 
-    </Grid>
+        </Border>
+    </Border>
 </Window>
