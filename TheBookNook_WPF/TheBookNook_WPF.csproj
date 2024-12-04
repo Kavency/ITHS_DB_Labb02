@@ -9,8 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Icon_key.png" />
-    <None Remove="Resources\Icon_user.png" />
     <None Remove="Resources\LoginBackGround.jpeg" />
     <None Remove="Resources\Logo.png" />
   </ItemGroup>
