@@ -5,8 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TheBookNook_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+        Title="MainWindow"
+        Height="600"
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="#2F4550">
+    <Grid Margin="15,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Content="View books"
+                    Margin="5,0"
+                    Padding="10,5"/>
+            <Button Content="View authors"
+                    Margin="5,0"
+                    Padding="10,5"/>
+            <Button Content="View customers"
+                    Margin="5,0"
+                    Padding="10,5" />
+            <Button Content="View stores"
+                    Margin="5,0"
+                    Padding="10,5" />
+            <Button Content="Filter"
+                    Margin="100,0,0,0"
+                    Padding="10,5" />
+            <Button Content="Search"
+                    Margin="5,0"
+                    Padding="10,5" />
+        </StackPanel>
+        <DataGrid Grid.Row="1"
+                  Margin="0,5">
+            
+        </DataGrid>
     </Grid>
 </Window>
