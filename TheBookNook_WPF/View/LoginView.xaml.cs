@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TheBookNook_WPF.View;
 
 namespace TheBookNook_WPF.View
 {
@@ -42,7 +43,9 @@ namespace TheBookNook_WPF.View
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mainWindow = new();
+            mainWindow.Show();
+            this.Close();
         }
     }
 }
