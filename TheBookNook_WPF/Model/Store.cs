@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TheBookNook_WPF.DBModel;
+﻿namespace TheBookNook_WPF.Model;
 
 public partial class Store
 {
