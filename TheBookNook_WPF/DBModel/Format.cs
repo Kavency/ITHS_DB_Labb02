@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace TheBookNook_WPF.DBModel;
+
+public partial class Format
+{
+    public int Id { get; set; }
+
+    public string Format1 { get; set; } = null!;
+
+    public virtual ICollection<Book> Books { get; set; } = new List<Book>();
+}
