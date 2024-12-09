@@ -34,37 +34,6 @@ namespace TheBookNook_WPF
             books.Add(new BookExample { ISBN = 9743563408, Title = "Creepy Lemmings", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
             books.Add(new BookExample { ISBN = 9735127493, Title = "Creepy Mice", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
             books.Add(new BookExample { ISBN = 9746387299, Title = "Nasty People", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 4624960485, Title = "Creepy Creeps", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 3647920394, Title = "Creepy Bugs", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9783567396, Title = "Creepy Birds", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9735870452, Title = "Creepy Fish", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9364869476, Title = "Creepy Snakes", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9712412384, Title = "Creepy Butterflies", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9590375832, Title = "Creepy Squirrels", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9743563408, Title = "Creepy Lemmings", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9735127493, Title = "Creepy Mice", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9746387299, Title = "Nasty People", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 4624960485, Title = "Creepy Creeps", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 3647920394, Title = "Creepy Bugs", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9783567396, Title = "Creepy Birds", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9735870452, Title = "Creepy Fish", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9364869476, Title = "Creepy Snakes", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9712412384, Title = "Creepy Butterflies", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9590375832, Title = "Creepy Squirrels", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9743563408, Title = "Creepy Lemmings", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9735127493, Title = "Creepy Mice", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9746387299, Title = "Nasty People", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 4624960485, Title = "Creepy Creeps", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 3647920394, Title = "Creepy Bugs", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9783567396, Title = "Creepy Birds", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9735870452, Title = "Creepy Fish", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9364869476, Title = "Creepy Snakes", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9712412384, Title = "Creepy Butterflies", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9590375832, Title = "Creepy Squirrels", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9743563408, Title = "Creepy Lemmings", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9735127493, Title = "Creepy Mice", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            books.Add(new BookExample { ISBN = 9746387299, Title = "Nasty People", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-
 
             MainDataGrid.ItemsSource = books;
         }
