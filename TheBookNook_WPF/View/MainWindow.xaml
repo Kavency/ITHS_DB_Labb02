@@ -4,9 +4,231 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TheBookNook_WPF"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow"
+        Height="720"
+        Width="1080"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
 
-    </Grid>
+    <Border Background="#2F4550"
+            BorderBrush="#F2AF0D"
+            BorderThickness="2"
+            CornerRadius="20"
+            MouseDown="MoveMainWindow_MouseDown">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Sidebar -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="1"
+                        Background="#586F7C"
+                        CornerRadius="0 50 0 20"
+                        BorderBrush="#F2AF0D"
+                        BorderThickness="1"
+                        Margin="-1">
+                    <DockPanel>
+                        <Border Width="80"
+                                Height="80"
+                                Padding="3"
+                                Background="#F2AF0D"
+                                CornerRadius="100"
+                                DockPanel.Dock="Top"
+                                HorizontalAlignment="Center"
+                                Margin="0 -30 0 0">
+                            <Ellipse>
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Resources/Logo.png"
+                                                Stretch="Fill" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Border>
+
+                        <TextBlock Text="John"
+                                   Foreground="#F4F4F9"
+                                   FontSize="22"
+                                   FontWeight="SemiBold"
+                                   DockPanel.Dock="Top"
+                                   TextAlignment="Center"
+                                   Margin="0, 10, 0, 0" />
+                        <TextBlock Text="Doe"
+                                   Foreground="#F4F4F9"
+                                   FontSize="12"
+                                   FontWeight="SemiBold"
+                                   DockPanel.Dock="Top"
+                                   TextAlignment="Center" />
+                        <Separator Margin="25, 10"
+                                   DockPanel.Dock="Top"
+                                   Height="1"
+                                   Background="#F2AF0D" />
+
+                        <StackPanel DockPanel.Dock="Top"
+                                    Orientation="Vertical"
+                                    Margin="15, 0, 0, 0">
+                            <Button Style="{StaticResource sideMenuButtons}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconBlock Icon="Book"
+                                                  Foreground="#F4F4F9"
+                                                  Margin="0, 0, 15, 0" />
+                                    <TextBlock Text="Books" />
+                                </StackPanel>
+                            </Button>
+                            <Button Style="{StaticResource sideMenuButtons}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconBlock Icon="FilePen"
+                                                  Foreground="#F4F4F9"
+                                                  Margin="0, 0, 15, 0" />
+                                    <TextBlock Text="Authors" />
+                                </StackPanel>
+                            </Button>
+                            <Button Style="{StaticResource sideMenuButtons}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconBlock Icon="PeopleGroup"
+                                                  Foreground="#F4F4F9"
+                                                  Margin="0, 0, 15, 0" />
+                                    <TextBlock Text="Customers" />
+                                </StackPanel>
+                            </Button>
+                            <Button Style="{StaticResource sideMenuButtons}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconBlock Icon="Shop"
+                                                  Foreground="#F4F4F9"
+                                                  Margin="0, 0, 15, 0" />
+                                    <TextBlock Text="Stores" />
+                                </StackPanel>
+                            </Button>
+
+                        </StackPanel>
+                        <Button Style="{StaticResource sideMenuButtons}"
+                                DockPanel.Dock="Bottom"
+                                VerticalAlignment="Bottom"
+                                Margin="30, 0, 0, 10">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconBlock Icon="ArrowRightFromBracket"
+                                              Foreground="#F4F4F9"
+                                              Margin="0, 0, 15, 0" />
+                                <TextBlock Text="Logout" />
+                            </StackPanel>
+                        </Button>
+
+                    </DockPanel>
+                </Border>
+            </Grid>
+
+            <!-- Main area -->
+            <Grid Grid.Column="1"
+                  Margin="30, 20 ,20, 20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Searchbox -->
+                <Grid Width="300"
+                      HorizontalAlignment="Left">
+                    <TextBlock Margin="20, 0"
+                               VerticalAlignment="Center"
+                               Foreground="#2F4550"
+                               IsHitTestVisible="False"
+                               Panel.ZIndex="1"
+                               Text="Search"
+                               Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVisibility}}" />
+                    <TextBox x:Name="txtSearch"
+                             Style="{StaticResource textboxSearch}" />
+                    <fa:IconBlock Icon="MagnifyingGlass"
+                                  Foreground="#2F4550"
+                                  Margin="0, 0, 15, 0"
+                                  HorizontalAlignment="Right" />
+
+                </Grid>
+
+                <!-- Window buttons -->
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0 -50 -25 0">
+
+                    <Button Margin="0, 0, 10, 0"
+                            FontSize="20"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource windowButtons}"
+                            Click="MinimizeWindow_Click">
+                        <fa:IconBlock Icon="WindowMinimize" />
+                    </Button>
+                    <Button Margin="0, 0, 10, 0"
+                            FontSize="20"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource windowButtons}"
+                            Click="MaximizeWindow_Click">
+                        <fa:IconBlock Icon="WindowMaximize" />
+                    </Button>
+                    <Button Margin="0, 0, 20, 0"
+                            FontSize="20"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource windowExitButton}"
+                            Click="ExitButton_Click">
+                        <fa:IconBlock Icon="CircleXmark" />
+                    </Button>
+                </StackPanel>
+
+                <!-- Page Title -->
+                <TextBlock Text="Books"
+                           Grid.Row="1"
+                           FontSize="32"
+                           FontWeight="SemiBold"
+                           Margin="0, 20, 0, 0"
+                           HorizontalAlignment="Left"
+                           Foreground="#F4F4F9" />
+
+                <!-- Add record button -->
+                <Button Style="{StaticResource addEditRecordButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconBlock Icon="Plus"
+                                      Width="11"
+                                      Height="11"
+                                      Margin="0, 0, 8, 0" />
+                        <TextBlock Text="Add record" />
+                    </StackPanel>
+                </Button>
+
+                <!-- Seperator -->
+                <Separator Height="1"
+                           Grid.Row="3"
+                           Background="#F2AF0D"
+                           Margin="0, -1, 0, 10" />
+
+                <!-- Datagrid -->
+                <DataGrid x:Name="MainDataGrid"
+                          Style="{DynamicResource DGStyle}"
+                          CellStyle="{DynamicResource DGCellStyle}"
+                          ColumnHeaderStyle="{DynamicResource DGColumnHeaderStyle}"
+                          RowStyle="{DynamicResource DGRowStyle}"
+                          Grid.Row="5"
+                          IsReadOnly="True">
+
+                </DataGrid>
+
+            </Grid>
+        </Grid>
+    </Border>
+
 </Window>
