@@ -29,11 +29,23 @@ public partial class TheBookNookDbContext : DbContext
 
     public virtual DbSet<Language> Languages { get; set; }
 
+    public virtual DbSet<Order> Orders { get; set; }
+
+    public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+
     public virtual DbSet<Service> Services { get; set; }
 
     public virtual DbSet<Stock> Stocks { get; set; }
 
     public virtual DbSet<Store> Stores { get; set; }
+
+    public virtual DbSet<VwAuthorSummary> VwAuthorSummaries { get; set; }
+
+    public virtual DbSet<VwStoreService> VwStoreServices { get; set; }
+
+    public virtual DbSet<VwTopCustomer> VwTopCustomers { get; set; }
+
+    public virtual DbSet<VwTotalInStock> VwTotalInStocks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -63,9 +75,7 @@ public partial class TheBookNookDbContext : DbContext
                         j.HasKey("AuthorId", "BookIsbn");
                         j.ToTable("AuthorBook");
                         j.IndexerProperty<int>("AuthorId").HasColumnName("AuthorID");
-                        j.IndexerProperty<string>("BookIsbn")
-                            .HasMaxLength(25)
-                            .HasColumnName("BookISBN");
+                        j.IndexerProperty<long>("BookIsbn").HasColumnName("BookISBN");
                     });
         });
 
@@ -74,11 +84,12 @@ public partial class TheBookNookDbContext : DbContext
             entity.HasKey(e => e.Isbn);
 
             entity.Property(e => e.Isbn)
-                .HasMaxLength(25)
+                .ValueGeneratedNever()
                 .HasColumnName("ISBN");
             entity.Property(e => e.FormatId).HasColumnName("FormatID");
             entity.Property(e => e.GenreId).HasColumnName("GenreID");
             entity.Property(e => e.LanguageId).HasColumnName("LanguageID");
+            entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
 
             entity.HasOne(d => d.Format).WithMany(p => p.Books)
                 .HasForeignKey(d => d.FormatId)
@@ -120,9 +131,9 @@ public partial class TheBookNookDbContext : DbContext
 
             entity.HasOne(d => d.Country).WithMany(p => p.Customers)
                 .HasForeignKey(d => d.CountryId)
-                .HasConstraintName("FK_Customers_Stores");
+                .HasConstraintName("FK_Customers_Countries");
 
-            entity.HasMany(d => d.Stores).WithMany(p => p.CustomersNavigation)
+            entity.HasMany(d => d.Stores).WithMany(p => p.Customers)
                 .UsingEntity<Dictionary<string, object>>(
                     "CustomerStore",
                     r => r.HasOne<Store>().WithMany()
@@ -172,6 +183,41 @@ public partial class TheBookNookDbContext : DbContext
                 .HasColumnName("Language");
         });
 
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAFF098376C");
+
+            entity.Property(e => e.OrderId).HasColumnName("OrderID");
+            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+            entity.Property(e => e.OrderDate).HasColumnType("datetime");
+            entity.Property(e => e.StoreId).HasColumnName("StoreID");
+            entity.Property(e => e.TotalAmount).HasColumnType("decimal(10, 2)");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("FK__Orders__Customer__3C34F16F");
+
+            entity.HasOne(d => d.Store).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.StoreId)
+                .HasConstraintName("FK_Orders_Stores");
+        });
+
+        modelBuilder.Entity<OrderDetail>(entity =>
+        {
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__D3B9D30C58902331");
+
+            entity.ToTable(tb => tb.HasTrigger("trg_UpdateTotalAmount"));
+
+            entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
+            entity.Property(e => e.OrderId).HasColumnName("OrderID");
+            entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.UnitPrice).HasColumnType("decimal(10, 2)");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("FK__OrderDeta__Order__3F115E1A");
+        });
+
         modelBuilder.Entity<Service>(entity =>
         {
             entity.HasIndex(e => e.Service1, "UQ_Services").IsUnique();
@@ -189,9 +235,7 @@ public partial class TheBookNookDbContext : DbContext
             entity.ToTable("Stock");
 
             entity.Property(e => e.StoreId).HasColumnName("StoreID");
-            entity.Property(e => e.Isbn)
-                .HasMaxLength(25)
-                .HasColumnName("ISBN");
+            entity.Property(e => e.Isbn).HasColumnName("ISBN");
 
             entity.HasOne(d => d.IsbnNavigation).WithMany(p => p.Stocks)
                 .HasForeignKey(d => d.Isbn)
@@ -235,6 +279,63 @@ public partial class TheBookNookDbContext : DbContext
                         j.IndexerProperty<int>("StoreId").HasColumnName("StoreID");
                         j.IndexerProperty<int>("ServiceId").HasColumnName("ServiceID");
                     });
+        });
+
+        modelBuilder.Entity<VwAuthorSummary>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("vw_AuthorSummary");
+
+            entity.Property(e => e.AuthorName)
+                .HasMaxLength(511)
+                .HasColumnName("Author name");
+            entity.Property(e => e.OfBookTitles).HasColumnName("# of book titles");
+            entity.Property(e => e.ValueInStockPerAuthor).HasColumnName("Value in stock per author");
+        });
+
+        modelBuilder.Entity<VwStoreService>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("vw_StoreServices");
+
+            entity.Property(e => e.Service).HasMaxLength(50);
+            entity.Property(e => e.StoreName)
+                .HasMaxLength(50)
+                .HasColumnName("Store name");
+        });
+
+        modelBuilder.Entity<VwTopCustomer>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("vw_TopCustomers");
+
+            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+            entity.Property(e => e.CustomerName)
+                .HasMaxLength(511)
+                .HasColumnName("Customer name");
+            entity.Property(e => e.Discount).HasColumnName("% Discount");
+            entity.Property(e => e.TotalSpent).HasColumnType("decimal(38, 2)");
+        });
+
+        modelBuilder.Entity<VwTotalInStock>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("vw_TotalInStock");
+
+            entity.Property(e => e.Format).HasMaxLength(50);
+            entity.Property(e => e.Genre).HasMaxLength(50);
+            entity.Property(e => e.InStock).HasColumnName("# in stock");
+            entity.Property(e => e.Isbn).HasColumnName("ISBN");
+            entity.Property(e => e.Language).HasMaxLength(255);
+            entity.Property(e => e.NeedsRestock)
+                .HasMaxLength(3)
+                .IsUnicode(false)
+                .HasColumnName("Needs restock");
+            entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
         });
 
         OnModelCreatingPartial(modelBuilder);

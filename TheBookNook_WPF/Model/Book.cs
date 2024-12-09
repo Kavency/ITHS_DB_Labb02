@@ -5,13 +5,13 @@ namespace TheBookNook_WPF.DBModel;
 
 public partial class Book
 {
-    public string Isbn { get; set; } = null!;
+    public long Isbn { get; set; }
 
     public string Title { get; set; } = null!;
 
     public int LanguageId { get; set; }
 
-    public double Price { get; set; }
+    public decimal Price { get; set; }
 
     public DateOnly ReleaseDate { get; set; }
 

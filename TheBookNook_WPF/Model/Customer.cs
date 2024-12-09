@@ -23,7 +23,9 @@ public partial class Customer
 
     public int? CountryId { get; set; }
 
-    public virtual Store? Country { get; set; }
+    public virtual Country? Country { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual ICollection<Store> Stores { get; set; } = new List<Store>();
 }

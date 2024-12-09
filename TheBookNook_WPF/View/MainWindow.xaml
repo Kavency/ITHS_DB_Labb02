@@ -80,7 +80,8 @@
                         <StackPanel DockPanel.Dock="Top"
                                     Orientation="Vertical"
                                     Margin="15, 0, 0, 0">
-                            <Button Style="{StaticResource sideMenuButtons}">
+                            <Button Style="{StaticResource sideMenuButtons}"
+                                    Click="BooksButton_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconBlock Icon="Book"
                                                   Foreground="#F4F4F9"
@@ -223,7 +224,18 @@
                           ColumnHeaderStyle="{DynamicResource DGColumnHeaderStyle}"
                           RowStyle="{DynamicResource DGRowStyle}"
                           Grid.Row="5"
-                          IsReadOnly="True">
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ISBN"
+                                            Binding="{Binding Isbn}" />
+                        <DataGridTextColumn Header="Title"
+                                            Binding="{Binding Title}" />
+                        <DataGridTextColumn Header="Author"
+                                            Binding="{Binding Author}" />
+                        <DataGridTextColumn Header="Price"
+                                            Binding="{Binding Price}" />
+                    </DataGrid.Columns>
 
                 </DataGrid>
 
