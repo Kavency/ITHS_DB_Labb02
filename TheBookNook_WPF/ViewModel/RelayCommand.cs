@@ -7,10 +7,10 @@ namespace TheBookNook_WPF.ViewModel
         private readonly Action<object> _executeCommand;
         private readonly Predicate<object> _canExecuteCommand;
 
-        public RelayCommand(Action<object> executeCommand)
+        public RelayCommand(Action<object> executeCommand, Predicate<object> canExecuteCommand = null)
         {
             _executeCommand = executeCommand;
-            _canExecuteCommand = null;
+            _canExecuteCommand = canExecuteCommand;
         }
 
         public event EventHandler? CanExecuteChanged
