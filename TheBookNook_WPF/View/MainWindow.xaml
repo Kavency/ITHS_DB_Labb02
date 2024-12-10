@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TheBookNook_WPF"
+        xmlns:views="clr-namespace:TheBookNook_WPF.View"
+        xmlns:vm="clr-namespace:TheBookNook_WPF.ViewModel"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
         Title="MainWindow"
@@ -12,10 +14,15 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        x:Name="XAML_MainWindow">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     </Window.Resources>
+
+    <Window.DataContext>
+        <vm:MainWindowVM />
+    </Window.DataContext>
 
     <Border Background="#2F4550"
             BorderBrush="#F2AF0D"
@@ -30,7 +37,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Sidebar -->
-            <Grid>
+            <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
                     <RowDefinition Height="*" />
@@ -47,10 +54,10 @@
                                 Height="80"
                                 Padding="3"
                                 Background="#F2AF0D"
-                                CornerRadius="100"
+                                CornerRadius="40"
                                 DockPanel.Dock="Top"
                                 HorizontalAlignment="Center"
-                                Margin="0 -30 0 0">
+                                Margin="0 -40 0 0">
                             <Ellipse>
                                 <Ellipse.Fill>
                                     <ImageBrush ImageSource="/Resources/Logo.png"
@@ -80,50 +87,55 @@
                         <StackPanel DockPanel.Dock="Top"
                                     Orientation="Vertical"
                                     Margin="15, 0, 0, 0">
-                            <Button Style="{StaticResource sideMenuButtons}"
-                                    Click="BooksButton_Click">
-                                <StackPanel Orientation="Horizontal">
+                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}"
+                                         Command="{Binding ShowBookViewCMD}">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="10 0 0 0">
                                     <fa:IconBlock Icon="Book"
                                                   Foreground="#F4F4F9"
                                                   Margin="0, 0, 15, 0" />
                                     <TextBlock Text="Books" />
                                 </StackPanel>
-                            </Button>
-                            <Button Style="{StaticResource sideMenuButtons}">
-                                <StackPanel Orientation="Horizontal">
+                            </RadioButton>
+                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="10 0 0 0">
                                     <fa:IconBlock Icon="FilePen"
                                                   Foreground="#F4F4F9"
                                                   Margin="0, 0, 15, 0" />
                                     <TextBlock Text="Authors" />
                                 </StackPanel>
-                            </Button>
-                            <Button Style="{StaticResource sideMenuButtons}">
-                                <StackPanel Orientation="Horizontal">
+                            </RadioButton>
+                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="10 0 0 0">
                                     <fa:IconBlock Icon="PeopleGroup"
                                                   Foreground="#F4F4F9"
                                                   Margin="0, 0, 15, 0" />
                                     <TextBlock Text="Customers" />
                                 </StackPanel>
-                            </Button>
-                            <Button Style="{StaticResource sideMenuButtons}">
-                                <StackPanel Orientation="Horizontal">
+                            </RadioButton>
+                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="10 0 0 0">
                                     <fa:IconBlock Icon="Shop"
                                                   Foreground="#F4F4F9"
                                                   Margin="0, 0, 15, 0" />
                                     <TextBlock Text="Stores" />
                                 </StackPanel>
-                            </Button>
+                            </RadioButton>
 
                         </StackPanel>
-                        <Button Style="{StaticResource sideMenuButtons}"
+                        <Button Style="{StaticResource SidebarExitButton}"
                                 DockPanel.Dock="Bottom"
                                 VerticalAlignment="Bottom"
                                 Margin="30, 0, 0, 10">
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10 0 0 0">
                                 <fa:IconBlock Icon="ArrowRightFromBracket"
                                               Foreground="#F4F4F9"
                                               Margin="0, 0, 15, 0" />
-                                <TextBlock Text="Logout" />
+                                <TextBlock Text="Sign out" />
                             </StackPanel>
                         </Button>
 
@@ -137,11 +149,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
                 <!-- Searchbox -->
@@ -191,53 +199,8 @@
                     </Button>
                 </StackPanel>
 
-                <!-- Page Title -->
-                <TextBlock Text="Books"
-                           Grid.Row="1"
-                           FontSize="32"
-                           FontWeight="SemiBold"
-                           Margin="0, 20, 0, 0"
-                           HorizontalAlignment="Left"
-                           Foreground="#F4F4F9" />
-
-                <!-- Add record button -->
-                <Button Style="{StaticResource addEditRecordButton}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconBlock Icon="Plus"
-                                      Width="11"
-                                      Height="11"
-                                      Margin="0, 0, 8, 0" />
-                        <TextBlock Text="Add record" />
-                    </StackPanel>
-                </Button>
-
-                <!-- Seperator -->
-                <Separator Height="1"
-                           Grid.Row="3"
-                           Background="#F2AF0D"
-                           Margin="0, -1, 0, 10" />
-
-                <!-- Datagrid -->
-                <DataGrid x:Name="MainDataGrid"
-                          Style="{DynamicResource DGStyle}"
-                          CellStyle="{DynamicResource DGCellStyle}"
-                          ColumnHeaderStyle="{DynamicResource DGColumnHeaderStyle}"
-                          RowStyle="{DynamicResource DGRowStyle}"
-                          Grid.Row="5"
-                          IsReadOnly="True"
-                          AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ISBN"
-                                            Binding="{Binding Isbn}" />
-                        <DataGridTextColumn Header="Title"
-                                            Binding="{Binding Title}" />
-                        <DataGridTextColumn Header="Author"
-                                            Binding="{Binding Author}" />
-                        <DataGridTextColumn Header="Price"
-                                            Binding="{Binding Price}" />
-                    </DataGrid.Columns>
-
-                </DataGrid>
+                <ContentControl Grid.Column="1"
+                                Grid.Row="2" />
 
             </Grid>
         </Grid>
