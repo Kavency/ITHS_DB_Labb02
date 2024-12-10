@@ -143,9 +143,19 @@
                                 DockPanel.Dock="Bottom"
                                 VerticalAlignment="Bottom"
                                 Margin="30, 0, 0, 10">
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="10 0 0 0">
+                            <StackPanel Orientation="Horizontal">
                                 <fa:IconBlock Icon="ArrowRightFromBracket"
+                                              Foreground="#F4F4F9"
+                                              Margin="0, 0, 15, 0" />
+                                <TextBlock Text="Exit" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SidebarExitButton}"
+                                DockPanel.Dock="Bottom"
+                                VerticalAlignment="Bottom"
+                                Margin="30, 0, 0, 0">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconBlock Icon="UserXmark"
                                               Foreground="#F4F4F9"
                                               Margin="0, 0, 15, 0" />
                                 <TextBlock Text="Sign out" />
