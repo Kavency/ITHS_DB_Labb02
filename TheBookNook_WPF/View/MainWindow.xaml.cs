@@ -1,16 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.EntityFrameworkCore;
-using TheBookNook_WPF.DBModel;
+using TheBookNook_WPF.Model;
+using TheBookNook_WPF.ViewModel;
 
 namespace TheBookNook_WPF
 {
@@ -23,6 +14,7 @@ namespace TheBookNook_WPF
         public MainWindow()
         {
             InitializeComponent();
+            //DataContext = new MainWindowVM();
 
             //// Example data
             //ObservableCollection<BookExample> books = new();
@@ -71,12 +63,6 @@ namespace TheBookNook_WPF
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-        }
-
-        private void BooksButton_Click(object sender, RoutedEventArgs e)
-        {
-            using var db = new TheBookNookDbContext();
-            MainDataGrid.ItemsSource = db.Books.ToList();
         }
     }
 
