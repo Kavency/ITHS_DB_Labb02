@@ -2,12 +2,12 @@
 
 namespace TheBookNook_WPF.ViewModel
 {
-    internal class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private readonly Action<object> _executeCommand;
-        private readonly Predicate<object> _canExecuteCommand;
+        private readonly Func<object,bool> _canExecuteCommand;
 
-        public RelayCommand(Action<object> executeCommand, Predicate<object> canExecuteCommand = null)
+        public RelayCommand(Action<object> executeCommand, Func<object,bool> canExecuteCommand = null)
         {
             _executeCommand = executeCommand;
             _canExecuteCommand = canExecuteCommand;

@@ -14,8 +14,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
-        AllowsTransparency="True"
-        x:Name="XAML_MainWindow">
+        AllowsTransparency="True">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     </Window.Resources>
@@ -88,7 +87,7 @@
                                     Orientation="Vertical"
                                     Margin="15, 0, 0, 0">
                             <RadioButton Style="{StaticResource sidebarRadioButtonTheme}"
-                                         Command="{Binding ShowBookViewCMD}"
+                                         Command="{Binding ShowHomeViewCMD}"
                                          IsChecked="True">
                                 <StackPanel Orientation="Horizontal"
                                             Margin="10 0 0 0">
@@ -108,7 +107,8 @@
                                     <TextBlock Text="Books" />
                                 </StackPanel>
                             </RadioButton>
-                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}">
+                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}"
+                                         Command="{Binding ShowAuthorsViewCMD}">
                                 <StackPanel Orientation="Horizontal"
                                             Margin="10 0 0 0">
                                     <fa:IconBlock Icon="FilePen"
@@ -117,7 +117,8 @@
                                     <TextBlock Text="Authors" />
                                 </StackPanel>
                             </RadioButton>
-                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}">
+                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}"
+                                         Command="{Binding ShowCustomersViewCMD}">
                                 <StackPanel Orientation="Horizontal"
                                             Margin="10 0 0 0">
                                     <fa:IconBlock Icon="PeopleGroup"
@@ -126,7 +127,8 @@
                                     <TextBlock Text="Customers" />
                                 </StackPanel>
                             </RadioButton>
-                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}">
+                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}"
+                                         Command="{Binding ShowStoresViewCMD}">
                                 <StackPanel Orientation="Horizontal"
                                             Margin="10 0 0 0">
                                     <fa:IconBlock Icon="Shop"
@@ -212,7 +214,7 @@
 
                 <ContentControl Grid.Column="1"
                                 Grid.Row="2"
-                                Content="{Binding CurrentView}"/>
+                                Content="{Binding CurrentView, Mode=TwoWay}"/>
 
             </Grid>
         </Grid>

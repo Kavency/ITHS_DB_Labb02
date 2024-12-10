@@ -1,40 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
 using TheBookNook_WPF.Model;
-using TheBookNook_WPF.View;
 
 namespace TheBookNook_WPF.ViewModel
 {
     public class MainWindowVM : VMBase
     {
+        #region Auto properties
+        public HomeVM HomeVM { get; set; }
+        public BooksVM BooksVM { get; set; }
+        public AuthorsVM AuthorsVM { get; set; }
+        public CustomersVM CustomersVM { get; set; }
+        public StoresVM StoresVM { get; set; }
         public ObservableCollection<Book> Books { get; set; } = new();
+        public RelayCommand ShowHomeViewCMD { get; set; }
+        public RelayCommand ShowBookViewCMD { get; set; }
+        public RelayCommand ShowAuthorsViewCMD { get; set; }
+        public RelayCommand ShowCustomersViewCMD { get; set; }
+        public RelayCommand ShowStoresViewCMD { get; set; }
+        #endregion
 
-        public Visibility BookViewVisibility { get; set; } = Visibility.Collapsed;
-        public ICommand ShowBookViewCMD { get; set; }
+
+        #region Fields
+        private object _currentView;
+        #endregion
+
+
+        #region Properties
+        public object CurrentView
+        {
+            get { return _currentView; }
+            set { _currentView = value; OnPropertyChanged(); }
+        }
+
+        #endregion
+
 
         public MainWindowVM()
         {
-            GetBooks();
+            this.HomeVM = new HomeVM();
+            this.BooksVM = new BooksVM();
+            this.AuthorsVM = new AuthorsVM();
+            this.CustomersVM = new CustomersVM();
+            this.StoresVM = new StoresVM();
 
-            ShowBookViewCMD = new RelayCommand(ShowBookView, CanShowBookView);
+            CurrentView = HomeVM;
+
+
+            ShowHomeViewCMD = new RelayCommand(x => CurrentView = HomeVM);
+            ShowBookViewCMD = new RelayCommand(x => CurrentView = BooksVM);
+            ShowAuthorsViewCMD = new RelayCommand(ShowAuthorsView);
+            ShowCustomersViewCMD = new RelayCommand(ShowCustomersView);
+            ShowStoresViewCMD = new RelayCommand(ShowStoresView);
+            //GetBooks();
         }
 
-        private bool CanShowBookView(object obj)
+        private void ShowHomeView(object obj)
         {
-            return true;
+            CurrentView = HomeVM;
         }
 
         private void ShowBookView(object obj)
         {
-            BooksView BooksDG = new BooksView();
-            BookViewVisibility = Visibility.Visible;
+            CurrentView = BooksVM;
         }
+        private void ShowAuthorsView(object obj)
+        {
+            CurrentView = AuthorsVM;
+        }
+        private void ShowCustomersView(object obj)
+        {
+            CurrentView = CustomersVM;
+        }
+
+        private void ShowStoresView(object obj)
+        {
+            CurrentView = StoresVM;
+        }
+
 
         private void GetBooks() 
         {

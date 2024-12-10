@@ -14,20 +14,6 @@ namespace TheBookNook_WPF
         public MainWindow()
         {
             InitializeComponent();
-            //DataContext = new MainWindowVM();
-
-            //// Example data
-            //ObservableCollection<BookExample> books = new();
-            //books.Add(new BookExample { ISBN = 4624960485, Title = "Creepy Creeps", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            //books.Add(new BookExample { ISBN = 3647920394, Title = "Creepy Bugs", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            //books.Add(new BookExample { ISBN = 9783567396, Title = "Creepy Birds", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            //books.Add(new BookExample { ISBN = 9735870452, Title = "Creepy Fish", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            //books.Add(new BookExample { ISBN = 9364869476, Title = "Creepy Snakes", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            //books.Add(new BookExample { ISBN = 9712412384, Title = "Creepy Butterflies", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            //books.Add(new BookExample { ISBN = 9590375832, Title = "Creepy Squirrels", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            //books.Add(new BookExample { ISBN = 9743563408, Title = "Creepy Lemmings", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            //books.Add(new BookExample { ISBN = 9735127493, Title = "Creepy Mice", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
-            //books.Add(new BookExample { ISBN = 9746387299, Title = "Nasty People", Author = "John McNuggin", Genre = "Horror", Type = "Pocket" });
         }
 
         private void MoveMainWindow_MouseDown(object sender, MouseButtonEventArgs e)
@@ -64,15 +50,5 @@ namespace TheBookNook_WPF
         {
             Application.Current.Shutdown();
         }
-    }
-
-    // Example data class
-    public class BookExample
-    {
-        public long ISBN { get; set; }
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public string Genre { get; set; }
-        public string Type { get; set; }
     }
 }

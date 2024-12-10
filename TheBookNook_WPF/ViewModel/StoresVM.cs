@@ -1,6 +1,6 @@
 ﻿namespace TheBookNook_WPF.ViewModel
 {
-    public class BooksVM : VMBase
+    public class StoresVM : VMBase
     {
     }
 }

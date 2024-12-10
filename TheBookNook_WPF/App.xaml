@@ -3,16 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TheBookNook_WPF"
              xmlns:vm="clr-namespace:TheBookNook_WPF.ViewModel"
-             xmlns:views="clr-namespace:TheBookNook_WPF.View"
+             xmlns:view="clr-namespace:TheBookNook_WPF.View"
              StartupUri="View/LoginView.xaml"
              xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
     <Application.Resources>
-
-        <!--<DataTemplate DataType="{x:Type viewModel:BooksVM}">
-            
-        </DataTemplate>-->
-
+        
         <ResourceDictionary>
+            <DataTemplate DataType="{x:Type vm:HomeVM}">
+                <view:HomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:BooksVM}">
+                <view:BooksView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AuthorsVM}">
+                <view:AuthorsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:CustomersVM}">
+                <view:CustomersView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:StoresVM}">
+                <view:StoresView />
+            </DataTemplate>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/SidebarRadioButton.xaml" />
                 <ResourceDictionary Source="Theme/SidebarExitButton.xaml" />
