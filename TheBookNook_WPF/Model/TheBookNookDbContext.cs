@@ -4,16 +4,14 @@ namespace TheBookNook_WPF.Model;
 
 public partial class TheBookNookDbContext : DbContext
 {
-    public TheBookNookDbContext()
-    {
-    }
+    public TheBookNookDbContext(){ }
 
     public TheBookNookDbContext(DbContextOptions<TheBookNookDbContext> options)
-        : base(options)
-    {
-    }
+        : base(options){ }
 
     public virtual DbSet<Author> Authors { get; set; }
+
+    //public virtual DbSet<AuthorBook> AuthorBook { get; set; }
 
     public virtual DbSet<Book> Books { get; set; }
 
@@ -335,6 +333,27 @@ public partial class TheBookNookDbContext : DbContext
                 .HasColumnName("Needs restock");
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
         });
+
+        //modelBuilder.Entity<AuthorBook>(entity =>
+        //{
+        //    entity
+        //        .HasKey(ba => new { ba.BookIsbn, ba.AuthorId });
+        //});
+
+        //modelBuilder.Entity<AuthorBook>(entity =>
+        //{
+        //    entity
+        //        .HasOne(ba => ba.Book)
+        //        .WithMany(b => b.BookAuthors)
+        //        .HasForeignKey(ba => ba.BookIsbn);
+        //});
+        //modelBuilder.Entity<AuthorBook>(entity =>
+        //{
+        //    entity
+        //        .HasOne(ba => ba.Author)
+        //        .WithMany(a => a.BookAuthors)
+        //        .HasForeignKey(ba => ba.AuthorId);
+        //});
 
         OnModelCreatingPartial(modelBuilder);
     }

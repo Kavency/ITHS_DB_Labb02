@@ -25,4 +25,5 @@ public partial class Book
     public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
 
     public virtual ICollection<Author> Authors { get; set; } = new List<Author>();
+    //public virtual ICollection<AuthorBook> BookAuthors { get; set; } = new List<AuthorBook>();
 }

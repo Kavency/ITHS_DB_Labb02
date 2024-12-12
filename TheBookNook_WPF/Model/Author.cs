@@ -11,4 +11,5 @@ public partial class Author
     public DateOnly BirthDate { get; set; }
 
     public virtual ICollection<Book> BookIsbns { get; set; } = new List<Book>();
+    //public virtual ICollection<AuthorBook> BookAuthors { get; set; } = new List<AuthorBook>();
 }

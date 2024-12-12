@@ -11,7 +11,6 @@ namespace TheBookNook_WPF.ViewModel
         public AuthorsVM AuthorsVM { get; set; }
         public CustomersVM CustomersVM { get; set; }
         public StoresVM StoresVM { get; set; }
-        public ObservableCollection<Book> Books { get; set; } = new();
         public RelayCommand ShowHomeViewCMD { get; set; }
         public RelayCommand ShowBookViewCMD { get; set; }
         public RelayCommand ShowAuthorsViewCMD { get; set; }
@@ -51,7 +50,6 @@ namespace TheBookNook_WPF.ViewModel
             ShowAuthorsViewCMD = new RelayCommand(ShowAuthorsView);
             ShowCustomersViewCMD = new RelayCommand(ShowCustomersView);
             ShowStoresViewCMD = new RelayCommand(ShowStoresView);
-            //GetBooks();
         }
 
         private void ShowHomeView(object obj)
@@ -76,17 +74,6 @@ namespace TheBookNook_WPF.ViewModel
         {
             CurrentView = StoresVM;
         }
-
-
-        private void GetBooks() 
-        {
-            using var db = new TheBookNookDbContext();
-            var books = db.Books.ToList();
-            
-            foreach (var item in books)
-            {
-                this.Books.Add(item);
-            }
-        }
+        
     }
 }

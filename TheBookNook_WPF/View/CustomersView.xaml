@@ -4,9 +4,62 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TheBookNook_WPF.View"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="BlanchedAlmond">
-            
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <DockPanel Grid.Row="1"
+                   Margin="10 0 10 5">
+            <TextBlock Text="Customers"
+                       FontSize="32"
+                       FontWeight="SemiBold"
+                       Margin="0, 20, 0, 0"
+                       HorizontalAlignment="Left"
+                       Foreground="#F4F4F9"
+                       DockPanel.Dock="left" />
+            <Button Style="{StaticResource addEditRecordButton}"
+                    DockPanel.Dock="Right">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconBlock Icon="Plus"
+                                  Width="11"
+                                  Height="11"
+                                  Margin="0, 0, 8, 0" />
+                    <TextBlock Text="Add record" />
+                </StackPanel>
+            </Button>
+        </DockPanel>
+
+        <!-- Seperator -->
+        <Separator Height="1"
+                   Background="#F2AF0D"
+                   Margin="0, -1, 0, 10" />
+
+        <!-- Datagrid -->
+        <DataGrid x:Name="BooksDG"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Customers}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id"
+                                    Binding="{Binding Id}" />
+                <DataGridTextColumn Header="First Name"
+                                    Binding="{Binding FirstName}" />
+                <DataGridTextColumn Header="Last Name"
+                                    Binding="{Binding LastName}" />
+                <DataGridTextColumn Header="Email"
+                                    Binding="{Binding Email}" />
+                <DataGridTextColumn Header="Phone"
+                                    Binding="{Binding Phone}" />
+                <DataGridTextColumn Header="Street address"
+                                    Binding="{Binding StreetName}" />
+                <DataGridTextColumn Header="Postal Code"
+                                    Binding="{Binding PostalCode}" />
+                <DataGridTextColumn Header="City"
+                                    Binding="{Binding City}" />
+                <DataGridTextColumn Header="Country"
+                                    Binding="{Binding CountryId}" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </StackPanel>
 </UserControl>

@@ -39,19 +39,17 @@
 
         <!-- Datagrid -->
         <DataGrid x:Name="BooksDG"
-                  Style="{DynamicResource DGStyle}"
-                  CellStyle="{DynamicResource DGCellStyle}"
-                  ColumnHeaderStyle="{DynamicResource DGColumnHeaderStyle}"
-                  RowStyle="{DynamicResource DGRowStyle}"
                   IsReadOnly="True"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Books}"
+                  SelectedItem="{Binding SelectedBook}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ISBN"
                                     Binding="{Binding Isbn}" />
                 <DataGridTextColumn Header="Title"
                                     Binding="{Binding Title}" />
-                <DataGridTextColumn Header="Author"
-                                    Binding="{Binding Author}" />
+                <DataGridTextColumn Header="Release date"
+                                    Binding="{Binding ReleaseDate, StringFormat=yyyy-MM-dd}" />
                 <DataGridTextColumn Header="Price"
                                     Binding="{Binding Price}" />
             </DataGrid.Columns>
