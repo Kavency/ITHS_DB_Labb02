@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using TheBookNook_WPF.Model;
-
-namespace TheBookNook_WPF.ViewModel
+﻿namespace TheBookNook_WPF.ViewModel
 {
     public class MainWindowVM : VMBase
     {
@@ -47,33 +44,11 @@ namespace TheBookNook_WPF.ViewModel
 
             ShowHomeViewCMD = new RelayCommand(x => CurrentView = HomeVM);
             ShowBookViewCMD = new RelayCommand(x => CurrentView = BooksVM);
-            ShowAuthorsViewCMD = new RelayCommand(ShowAuthorsView);
-            ShowCustomersViewCMD = new RelayCommand(ShowCustomersView);
-            ShowStoresViewCMD = new RelayCommand(ShowStoresView);
+            ShowAuthorsViewCMD = new RelayCommand(x => CurrentView = AuthorsVM);
+            ShowCustomersViewCMD = new RelayCommand(x => CurrentView = CustomersVM);
+            ShowStoresViewCMD = new RelayCommand(x => CurrentView = StoresVM);
         }
 
-        private void ShowHomeView(object obj)
-        {
-            CurrentView = HomeVM;
-        }
-
-        private void ShowBookView(object obj)
-        {
-            CurrentView = BooksVM;
-        }
-        private void ShowAuthorsView(object obj)
-        {
-            CurrentView = AuthorsVM;
-        }
-        private void ShowCustomersView(object obj)
-        {
-            CurrentView = CustomersVM;
-        }
-
-        private void ShowStoresView(object obj)
-        {
-            CurrentView = StoresVM;
-        }
         
     }
 }

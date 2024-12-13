@@ -1,19 +1,32 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Controls;
 using TheBookNook_WPF.Model;
+using TheBookNook_WPF.View;
 
 namespace TheBookNook_WPF.ViewModel
 {
     public class BooksVM : VMBase
     {
+        private Book _selectedBook;
+        
+
         public ObservableCollection<Book>? Books { get; private set; }
+        public RelayCommand AddRecordCMD { get; }
+
 
         public BooksVM()
         {
+            AddRecordCMD = new RelayCommand(OpenAddRecordWindow);
+
             LoadBooksAsync();
         }
 
-        private Book _selectedBook;
+
+        private void OpenAddRecordWindow(object obj)
+        {
+            var AddWindow = new AddBookView();
+            AddWindow.ShowDialog();
+        }
+
 
         public Book SelectedBook
         {
@@ -25,6 +38,7 @@ namespace TheBookNook_WPF.ViewModel
             }
         }
 
+
         private async void LoadBooksAsync()
         {
             var data = await Task.Run(() => GetDataFromDatabase());
@@ -32,6 +46,7 @@ namespace TheBookNook_WPF.ViewModel
             Books = data;
             OnPropertyChanged("Books");
         }
+
 
         private ObservableCollection<Book> GetDataFromDatabase()
         {
