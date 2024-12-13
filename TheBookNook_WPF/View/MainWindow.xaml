@@ -30,13 +30,18 @@
             MouseDown="MoveMainWindow_MouseDown">
 
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="39*" />
+                <RowDefinition Height="677*" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <!-- Sidebar -->
-            <Grid Grid.Column="0">
+            <Grid Grid.Column="0"
+                  Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
                     <RowDefinition Height="*" />
@@ -168,7 +173,8 @@
 
             <!-- Main area -->
             <Grid Grid.Column="1"
-                  Margin="30, 20 ,20, 20">
+                  Margin="30, 20 ,20, 20"
+                  Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
@@ -224,7 +230,7 @@
 
                 <ContentControl Grid.Column="1"
                                 Grid.Row="2"
-                                Content="{Binding CurrentView, Mode=TwoWay}"/>
+                                Content="{Binding CurrentView, Mode=TwoWay}" />
 
             </Grid>
         </Grid>

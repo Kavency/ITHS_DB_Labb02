@@ -9,18 +9,19 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+
     <StackPanel Orientation="Vertical">
-        <DockPanel Grid.Row="1"
-                   Margin="10 0 10 5">
+        <DockPanel Margin="10 0 10 5">
             <TextBlock Text="Books"
                        FontSize="32"
                        FontWeight="SemiBold"
                        Margin="0, 20, 0, 0"
                        HorizontalAlignment="Left"
                        Foreground="#F4F4F9"
-                       DockPanel.Dock="left"/>
+                       DockPanel.Dock="left" />
             <Button Style="{StaticResource addEditRecordButton}"
-                    DockPanel.Dock="Right">
+                    DockPanel.Dock="Right"
+                    Command="{Binding AddRecordCMD}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Plus"
                                   Width="11"
@@ -30,19 +31,19 @@
                 </StackPanel>
             </Button>
         </DockPanel>
-        
 
-        <!-- Seperator -->
         <Separator Height="1"
                    Background="#F2AF0D"
                    Margin="0, -1, 0, 10" />
 
-        <!-- Datagrid -->
         <DataGrid x:Name="BooksDG"
                   IsReadOnly="True"
-                  AutoGenerateColumns="False"
                   ItemsSource="{Binding Books}"
-                  SelectedItem="{Binding SelectedBook}">
+                  SelectedItem="{Binding SelectedBook}"
+                  Style="{StaticResource DGStyle}"
+                  ColumnHeaderStyle="{StaticResource DGColumnHeaderStyle}"
+                  RowStyle="{StaticResource DGRowStyle}"
+                  CellStyle="{StaticResource DGCellStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ISBN"
                                     Binding="{Binding Isbn}" />
@@ -52,8 +53,8 @@
                                     Binding="{Binding ReleaseDate, StringFormat=yyyy-MM-dd}" />
                 <DataGridTextColumn Header="Price"
                                     Binding="{Binding Price}" />
+                
             </DataGrid.Columns>
-
         </DataGrid>
     </StackPanel>
 </UserControl>
