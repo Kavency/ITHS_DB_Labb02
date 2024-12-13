@@ -152,7 +152,7 @@
         <Setter Property="Stylus.IsFlicksEnabled"
                 Value="False" />
         <Setter Property="AutoGenerateColumns"
-                Value="True" />
+                Value="False" />
         <Setter Property="HeadersVisibility"
                 Value="Column" />
         <Setter Property="Margin"
