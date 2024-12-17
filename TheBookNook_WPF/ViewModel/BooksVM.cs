@@ -29,7 +29,7 @@ namespace TheBookNook_WPF.ViewModel
 
         #region Properties
         public Book? NewBook { get => _newBook; set { _newBook = value; OnPropertyChanged(); } }
-        public Book SelectedBook { get => _selectedBook; set{ _selectedBook = value; OnPropertyChanged();} }
+        public Book SelectedBook { get => _selectedBook; set { _selectedBook = value; OnPropertyChanged(); } }
         public Format Format { get => _format; set { _format = value; OnPropertyChanged(); } }
         public Genre Genre { get => _genre; set { _genre = value; OnPropertyChanged(); } }
         public Language Language { get => _language; set { _language = value; OnPropertyChanged(); } }
@@ -39,10 +39,10 @@ namespace TheBookNook_WPF.ViewModel
         public string PriceString { get => _priceString; set { _priceString = value; OnPropertyChanged(); } }
         public string TitleString { get => _titleString; set { _titleString = value; OnPropertyChanged(); } }
         public ObservableCollection<Book>? Books { get; private set; }
-        public ObservableCollection<Author>? Authors { get => _authors; set { _authors = value; OnPropertyChanged(); } }
-        public ObservableCollection<Genre>? Genres { get => _genres; set { _genres = value; OnPropertyChanged(); } }
-        public ObservableCollection<Format>? Formats { get => _formats; set { _formats = value; OnPropertyChanged(); } }
-        public ObservableCollection<Language>? Languages { get => _languages; set { _languages = value; OnPropertyChanged(); } }
+        public ObservableCollection<Author>? Authors { get => _authors; set => _authors = value; }
+        public ObservableCollection<Genre>? Genres { get => _genres; set => _genres = value; }
+        public ObservableCollection<Format>? Formats { get => _formats; set => _formats = value; }
+        public ObservableCollection<Language>? Languages { get => _languages; set => _languages = value; }
         public Visibility AddBookVisibility { get => _addBookVisibility; set { _addBookVisibility = value; OnPropertyChanged(); } }
         public Visibility DimBackgroundVisibility { get => _dimBackgroundVisibility; set { _dimBackgroundVisibility = value; OnPropertyChanged(); } }
         public RelayCommand AddBookButtonCMD { get; }
@@ -58,7 +58,7 @@ namespace TheBookNook_WPF.ViewModel
             SaveNewBookCMD = new RelayCommand(SaveNewBookToDB);
 
             //LoadBooksAsync();
-            
+
             _newBook = new Book();
 
             LoadDataAsync();
@@ -172,7 +172,7 @@ namespace TheBookNook_WPF.ViewModel
 
         private void SwitchVisibility(bool showForms)
         {
-            if(showForms)
+            if (showForms)
             {
                 DimBackgroundVisibility = Visibility.Visible;
                 AddBookVisibility = Visibility.Visible;
