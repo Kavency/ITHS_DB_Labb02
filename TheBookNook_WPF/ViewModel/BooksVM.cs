@@ -44,7 +44,7 @@ namespace TheBookNook_WPF.ViewModel
             var data = await Task.Run(() => GetDataFromDatabase());
 
             Books = data;
-            OnPropertyChanged(nameof(Books));
+            //OnPropertyChanged(nameof(Books));
         }
 
 
