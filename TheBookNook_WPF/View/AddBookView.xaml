@@ -15,7 +15,7 @@
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
-    
+
     <Window.DataContext>
         <vm:AddBookVM />
     </Window.DataContext>
@@ -99,9 +99,10 @@
                         Orientation="Vertical"
                         VerticalAlignment="Center"
                         Margin="5 0">
-                
-                <TextBox x:Name="IsbnTextBox"  Margin="0 3"
-                         Text="{Binding NewRecord.Isbn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox x:Name="IsbnTextBox"
+                         Margin="0 3"
+                         Text="{Binding IsbnString}" />
 
                 <TextBox x:Name="TitleTextBox"
                          Margin="0 3">
@@ -120,30 +121,38 @@
                 <ComboBox x:Name="AuthorComboBox"
                           Margin="0 3"
                           IsEditable="True"
-                          ItemsSource="{Binding Authors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          DisplayMemberPath="FirstName"/>
+                          DisplayMemberPath="FullName"
+                          ItemsSource="{Binding Authors}"
+                          Text="{Binding AuthorNameString}" />
 
                 <DatePicker x:Name="RealeaseDateTextBox"
                             Margin="0 3"
-                            Text="{Binding NewRecord.ReleaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding NewBook.ReleaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <ComboBox x:Name="LanguageComboBox"
                           Margin="0 3"
                           IsEditable="False"
-                          ItemsSource="{Binding Languages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                          DisplayMemberPath="Language1"
+                          ItemsSource="{Binding Languages}"
+                          SelectedItem="{Binding Language}" />
 
                 <ComboBox x:Name="Format"
                           Margin="0 3"
                           IsEditable="False"
-                          ItemsSource="{Binding Formats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                          DisplayMemberPath="Format1"
+                          ItemsSource="{Binding Formats}"
+                          SelectedItem="{Binding Format}" />
 
                 <ComboBox x:Name="GenreComBox"
                           Margin="0 3"
                           IsEditable="False"
-                          ItemsSource="{Binding Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                          DisplayMemberPath="Genre1"
+                          ItemsSource="{Binding Genres}"
+                          SelectedItem="{Binding Genre}" />
 
                 <TextBox x:Name="PriceTextBox"
-                         Margin="0 3" />
+                         Margin="0 3"
+                         Text="{Binding PriceString}" />
 
             </StackPanel>
 
@@ -151,13 +160,14 @@
                     Grid.Column="0"
                     Grid.Row="2"
                     Margin="5 5"
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center"
+                    Command="{Binding SaveRecordCMD}" />
             <Button Content="Cancel"
                     Grid.Column="1"
                     Grid.Row="2"
                     Margin="5 5"
                     VerticalAlignment="Center"
-                    Click="Cancel_Button_Click"/>
+                    Click="Cancel_Button_Click" />
 
         </Grid>
     </Border>
