@@ -16,7 +16,7 @@
     <Border Background="#2F4550"
             BorderBrush="#F2AF0D"
             BorderThickness="2"
-            CornerRadius="20 0 0 20">
+            CornerRadius="20">
         
         <Grid VerticalAlignment="Center"
               MinHeight="450"
@@ -105,8 +105,7 @@
                      Grid.Row="1"
                      Margin="0 3"
                      VerticalAlignment="Center"
-                     
-                     Text="{Binding IsbnString}" />
+                     Text="{Binding BooksVM.IsbnString}" />
 
             <TextBox x:Name="TitleTextBox"
                      Grid.Column="1"
@@ -114,7 +113,7 @@
                      VerticalAlignment="Center"
                      Margin="0 3">
                 <TextBox.Text>
-                    <Binding Path="TitleString"
+                    <Binding Path="BooksVM.TitleString"
                              ValidatesOnDataErrors="True"
                              Mode="TwoWay"
                              UpdateSourceTrigger="PropertyChanged">
@@ -132,15 +131,15 @@
                       IsEditable="True"
                       DisplayMemberPath="FullName"
                       VerticalAlignment="Center"
-                      ItemsSource="{Binding Authors}"
-                      Text="{Binding AuthorNameString}" />
+                      ItemsSource="{Binding BooksVM.Authors}"
+                      Text="{Binding BooksVM.AuthorNameString}" />
 
             <DatePicker x:Name="RealeaseDateTextBox"
                         Grid.Column="1"
                         Grid.Row="4"
                         Margin="0 3"
                         VerticalContentAlignment="Center"
-                        Text="{Binding NewBook.ReleaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding BooksVM.NewBook.ReleaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <ComboBox x:Name="LanguageComboBox"
                       Grid.Column="1"
@@ -149,8 +148,8 @@
                       IsEditable="False"
                       DisplayMemberPath="Language1"
                       VerticalAlignment="Center"
-                      ItemsSource="{Binding Languages}"
-                      SelectedItem="{Binding Language}" />
+                      ItemsSource="{Binding BooksVM.Languages}"
+                      SelectedItem="{Binding BooksVM.Language}" />
 
             <ComboBox x:Name="Format"
                       Grid.Column="1"
@@ -159,8 +158,8 @@
                       IsEditable="False"
                       DisplayMemberPath="Format1"
                       VerticalAlignment="Center"
-                      ItemsSource="{Binding Formats}"
-                      SelectedItem="{Binding Format}" />
+                      ItemsSource="{Binding BooksVM.Formats}"
+                      SelectedItem="{Binding BooksVM.Format}" />
 
             <ComboBox x:Name="GenreComBox"
                       Grid.Column="1"
@@ -169,29 +168,29 @@
                       IsEditable="False"
                       DisplayMemberPath="Genre1"
                       VerticalAlignment="Center"
-                      ItemsSource="{Binding Genres}"
-                      SelectedItem="{Binding Genre}" />
+                      ItemsSource="{Binding BooksVM.Genres}"
+                      SelectedItem="{Binding BooksVM.Genre}" />
 
             <TextBox x:Name="PriceTextBox"
                      Margin="0 3"
                      Grid.Column="1"
                      Grid.Row="8"
                      VerticalAlignment="Center"
-                     
-                     Text="{Binding PriceString}" />
+                     Text="{Binding BooksVM.PriceString}" />
 
             <Button Content="Save"
                     Grid.Column="0"
                     Grid.Row="9"
                     Margin="5 5"
-                    VerticalAlignment="Center" />
-            <!--Command="{Binding SaveRecordCMD}"
-                    CommandParameter="{Binding ElementName=AddWindow}"--> 
+                    VerticalAlignment="Center"
+                    Command="{Binding BooksVM.SaveNewBookCMD}"/>
+            
             <Button Content="Cancel"
                     Grid.Column="1"
                     Grid.Row="9"
                     Margin="5 5"
                     VerticalAlignment="Center"
+                    Command="{Binding BooksVM.CancelButtonCMD}"
                     />
 
         </Grid>

@@ -21,13 +21,13 @@
                        DockPanel.Dock="left" />
             <Button Style="{StaticResource addEditRecordButton}"
                     DockPanel.Dock="Right"
-                    Command="{Binding AddRecordCMD}">
+                    Command="{Binding AddBookButtonCMD}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Plus"
                                   Width="11"
                                   Height="11"
                                   Margin="0, 0, 8, 0" />
-                    <TextBlock Text="Add record" />
+                    <TextBlock Text="Add Book" />
                 </StackPanel>
             </Button>
         </DockPanel>
@@ -38,12 +38,13 @@
 
         <DataGrid x:Name="BooksDG"
                   IsReadOnly="True"
+                  AutoGenerateColumns="False"
                   ItemsSource="{Binding Books}"
-                  SelectedItem="{Binding SelectedBook}"
-                  Style="{StaticResource DGStyle}"
+                  SelectedItem="{Binding SelectedBook}">
+                  <!--Style="{StaticResource DGStyle}"
                   ColumnHeaderStyle="{StaticResource DGColumnHeaderStyle}"
                   RowStyle="{StaticResource DGRowStyle}"
-                  CellStyle="{StaticResource DGCellStyle}">
+                  CellStyle="{StaticResource DGCellStyle}">-->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ISBN"
                                     Binding="{Binding Isbn}" />
