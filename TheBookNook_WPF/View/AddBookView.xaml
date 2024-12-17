@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TheBookNook_WPF.View"
+        xmlns:converter="clr-namespace:TheBookNook_WPF.Converters"
+        xmlns:rules="clr-namespace:TheBookNook_WPF.ValidationRules"
         xmlns:vm="clr-namespace:TheBookNook_WPF.ViewModel"
         mc:Ignorable="d"
         Title="AddBookView"
@@ -17,6 +19,21 @@
     <Window.DataContext>
         <vm:AddBookVM />
     </Window.DataContext>
+    <Window.Resources>
+        <converter:StringToIntConverter x:Key="StringToIntConverter" />
+
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError"
+                         Value="True">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Background"
+                            Value="LightCoral" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
     <Border Background="#2F4550"
             BorderBrush="#F2AF0D"
@@ -87,8 +104,18 @@
                          Text="{Binding NewRecord.Isbn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBox x:Name="TitleTextBox"
-                         Margin="0 3"
-                         Text="{Binding NewRecord.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         Margin="0 3">
+                    <TextBox.Text>
+                        <Binding Path="TitleString"
+                                 ValidatesOnDataErrors="True"
+                                 Mode="TwoWay"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rules:NotEmptyValidation />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
 
                 <ComboBox x:Name="AuthorComboBox"
                           Margin="0 3"
