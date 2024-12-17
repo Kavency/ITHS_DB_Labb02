@@ -17,6 +17,20 @@
         AllowsTransparency="True">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        <Storyboard x:Key="AddPaneSwipe">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetName="AddBookPane"
+                                              Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                <EasingThicknessKeyFrame KeyTime="00:00:00"
+                                         Value="0,0,-1180,0" />
+                <EasingThicknessKeyFrame KeyTime="00:00:00.5000000"
+                                         Value="0,0,-570,0" />
+            </ThicknessAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="dimView"
+                                          Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)">
+                <EasingColorKeyFrame KeyTime="00:00:00"
+                                     Value="Black" />
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
 
     <Window.DataContext>
@@ -232,17 +246,19 @@
                                 Grid.Row="2"
                                 Content="{Binding CurrentView, Mode=TwoWay}" />
 
-               
-                <views:DimView Grid.Column="1"
-                               Grid.Row="2"/>
+                <!--<views:DimView x:Name="dimView"
+                               Grid.Column="1"
+                               Grid.Row="2"
+                               OpacityMask="Black" />-->
 
-                <views:AddBookPane Grid.Column="1"
+                <views:AddBookPane x:Name="addBookPane"
+                                   Grid.Column="1"
                                    Grid.Row="2"
-                                   Margin="0 0 -570 0" />
+                                   Margin="0 0 -1180 0" />
 
             </Grid>
         </Grid>
-        
+
     </Border>
 
 </Window>
