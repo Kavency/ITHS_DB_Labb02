@@ -1,4 +1,6 @@
-﻿namespace TheBookNook_WPF.Model;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TheBookNook_WPF.Model;
 
 public partial class Author
 {
@@ -10,6 +12,9 @@ public partial class Author
 
     public DateOnly BirthDate { get; set; }
 
+    [NotMapped]
+    public string FullName { get; set; }
+
     public virtual ICollection<Book> BookIsbns { get; set; } = new List<Book>();
-    //public virtual ICollection<AuthorBook> BookAuthors { get; set; } = new List<AuthorBook>();
+
 }
