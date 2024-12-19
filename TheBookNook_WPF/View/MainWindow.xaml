@@ -41,7 +41,8 @@
             BorderBrush="#F2AF0D"
             BorderThickness="2"
             CornerRadius="20"
-            MouseDown="MoveMainWindow_MouseDown">
+            MouseDown="MoveMainWindow_MouseDown"
+            IsEnabled="{Binding MainWindowIsEnabled}">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -185,6 +186,7 @@
                 </Border>
             </Grid>
 
+            
             <!-- Main area -->
             <Grid Grid.Column="1"
                   Margin="30,20,20,20"
@@ -194,30 +196,12 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-
-                <!-- Searchbox -->
-                <Grid Width="300"
-                      HorizontalAlignment="Left">
-                    <TextBlock Margin="20, 0"
-                               VerticalAlignment="Center"
-                               Foreground="#2F4550"
-                               IsHitTestVisible="False"
-                               Panel.ZIndex="1"
-                               Text="Search"
-                               Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVisibility}}" />
-                    <TextBox x:Name="txtSearch"
-                             Style="{StaticResource textboxSearch}" />
-                    <fa:IconBlock Icon="MagnifyingGlass"
-                                  Foreground="#2F4550"
-                                  Margin="0, 0, 15, 0"
-                                  HorizontalAlignment="Right" />
-
-                </Grid>
-
+                
+                
                 <!-- Window buttons -->
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right"
-                            Margin="0 -50 -25 0">
+                            Margin="0 0 -25 0">
 
                     <Button Margin="0, 0, 10, 0"
                             FontSize="20"
@@ -242,20 +226,24 @@
                     </Button>
                 </StackPanel>
 
+                
+                <!-- Main area views -->
                 <ContentControl Grid.Column="1"
                                 Grid.Row="2"
                                 Content="{Binding CurrentView, Mode=TwoWay}" />
 
-                <views:DimView x:Name="dimView"
-                               Grid.Column="1"
+                <views:DimView Grid.Column="1"
                                Grid.Row="2"
                                Margin="-5"
-                               Visibility="{Binding BooksVM.DimBackgroundVisibility}"/>
+                               Visibility="{Binding BooksVM.DimBackgroundVisibility}" />
 
-                <views:AddBookPane x:Name="addBookPane"
-                                   Grid.Column="1"
+                <views:AddBookPane Grid.Column="1"
                                    Grid.Row="2"
-                                   Visibility="{Binding BooksVM.AddBookVisibility}"/>
+                                   Visibility="{Binding BooksVM.AddBookVisibility}" />
+
+                <views:EditBookPane Grid.Column="1"
+                                    Grid.Row="2"
+                                    Visibility="{Binding BooksVM.EditBookVisibility}" />
 
             </Grid>
         </Grid>

@@ -11,7 +11,8 @@
              d:DesignWidth="800">
 
     <StackPanel Orientation="Vertical">
-        <DockPanel Margin="10 0 10 5">
+        <DockPanel Margin="10 0 10 5"
+                   LastChildFill="False">
             <TextBlock Text="Books"
                        FontSize="32"
                        FontWeight="SemiBold"
@@ -19,15 +20,38 @@
                        HorizontalAlignment="Left"
                        Foreground="#F4F4F9"
                        DockPanel.Dock="left" />
-            <Button Style="{StaticResource addEditRecordButton}"
-                    DockPanel.Dock="Right"
+            <Button DockPanel.Dock="Right"
+                    Margin="5 15"
+                    Padding="10"
                     Command="{Binding AddBookButtonCMD}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Plus"
-                                  Width="11"
-                                  Height="11"
+                                  Width="20"
+                                  Height="12"
                                   Margin="0, 0, 8, 0" />
-                    <TextBlock Text="Add Book" />
+                    <TextBlock Text="Add Record" />
+                </StackPanel>
+            </Button>
+            <Button DockPanel.Dock="Right"
+                    Margin="5 15"
+                    Padding="10"
+                    Command="{Binding DeleteBookButtonCMD}"
+                    Visibility="{Binding EditButtonVisibility}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconBlock Icon="TrashCan"
+                                  Width="20"
+                                  Height="12"/>
+                </StackPanel>
+            </Button>
+            <Button DockPanel.Dock="Right"
+                    Margin="5 15"
+                    Padding="10"
+                    Command="{Binding EditBookButtonCMD}"
+                    Visibility="{Binding EditButtonVisibility}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconBlock Icon="Edit"
+                                  Width="20"
+                                  Height="12" />
                 </StackPanel>
             </Button>
         </DockPanel>
@@ -41,7 +65,7 @@
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding Books}"
                   SelectedItem="{Binding SelectedBook}">
-                  <!--Style="{StaticResource DGStyle}"
+            <!--Style="{StaticResource DGStyle}"
                   ColumnHeaderStyle="{StaticResource DGColumnHeaderStyle}"
                   RowStyle="{StaticResource DGRowStyle}"
                   CellStyle="{StaticResource DGCellStyle}">-->
@@ -54,7 +78,7 @@
                                     Binding="{Binding ReleaseDate, StringFormat=yyyy-MM-dd}" />
                 <DataGridTextColumn Header="Price"
                                     Binding="{Binding Price}" />
-                
+
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>

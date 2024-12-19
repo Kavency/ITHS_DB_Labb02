@@ -1,23 +1,27 @@
-﻿namespace TheBookNook_WPF.ViewModel
+﻿using System.Windows;
+
+namespace TheBookNook_WPF.ViewModel
 {
     public class MainWindowVM : VMBase
     {
+        #region Fields
+        private object _currentView;
+        private bool _mainWindowIsEnabled = true;
+        #endregion
+
+
         #region Auto properties
         public HomeVM HomeVM { get; set; }
         public BooksVM BooksVM { get; set; }
         public AuthorsVM AuthorsVM { get; set; }
         public CustomersVM CustomersVM { get; set; }
         public StoresVM StoresVM { get; set; }
+        public bool MainWindowIsEnabled { get => _mainWindowIsEnabled; set { _mainWindowIsEnabled = value; OnPropertyChanged(); } }
         public RelayCommand ShowHomeViewCMD { get; set; }
         public RelayCommand ShowBookViewCMD { get; set; }
         public RelayCommand ShowAuthorsViewCMD { get; set; }
         public RelayCommand ShowCustomersViewCMD { get; set; }
         public RelayCommand ShowStoresViewCMD { get; set; }
-        #endregion
-
-
-        #region Fields
-        private object _currentView;
         #endregion
 
 
