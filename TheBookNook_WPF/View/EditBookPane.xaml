@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TheBookNook_WPF.View"
+             xmlns:vm="clr-namespace:TheBookNook_WPF.ViewModel"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="300"
@@ -12,7 +13,7 @@
              MaxHeight="450"
              MinWidth="300"
              MaxWidth="300">
-
+  
     <Border Background="#2F4550"
             BorderBrush="#F2AF0D"
             BorderThickness="2"
@@ -100,20 +101,19 @@
                        VerticalAlignment="Center"
                        Foreground="#F4F4F9" />
 
-            <TextBox x:Name="IsbnTextBox"
-                     Grid.Column="1"
+            <TextBox Grid.Column="1"
                      Grid.Row="1"
                      Margin="0 3"
                      VerticalAlignment="Center"
-                     Text="{Binding BooksVM.SelectedBook.Isbn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     IsEnabled="False"
+                     Text="{Binding BooksVM.CurrentBook.Isbn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBox x:Name="TitleTextBox"
-                     Grid.Column="1"
+            <TextBox Grid.Column="1"
                      Grid.Row="2"
                      VerticalAlignment="Center"
                      Margin="0 3">
                 <TextBox.Text>
-                    <Binding Path="BooksVM.SelectedBook.Title"
+                    <Binding Path="BooksVM.CurrentBook.Title"
                              ValidatesOnDataErrors="True"
                              Mode="TwoWay"
                              UpdateSourceTrigger="PropertyChanged">
@@ -129,37 +129,37 @@
                       Grid.Row="3"
                       Margin="0 3"
                       IsEditable="True"
-                      DisplayMemberPath="FullName"
                       VerticalAlignment="Center"
-                      ItemsSource="{Binding BooksVM.Authors}"
-                      Text="{Binding BooksVM.AuthorNameString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                      DisplayMemberPath="FullName"
+                      ItemsSource="{Binding DataContext.Authors, RelativeSource={RelativeSource AncestorType=Window}}"
+                      
+                      Text="{Binding BooksVM.AuthorNameString}"/>
 
             <DatePicker x:Name="RealeaseDateTextBox"
                         Grid.Column="1"
                         Grid.Row="4"
                         Margin="0 3"
                         VerticalContentAlignment="Center"
-                        Text="{Binding BooksVM.SelectedBook.ReleaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=yyyy-MM-dd}" />
+                        Text="{Binding BooksVM.CurrentBook.ReleaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=yyyy-MM-dd}" />
 
             <ComboBox x:Name="LanguageComboBox"
                       Grid.Column="1"
                       Grid.Row="5"
                       Margin="0 3"
                       IsEditable="False"
-                      DisplayMemberPath="Language1"
                       VerticalAlignment="Center"
                       ItemsSource="{Binding BooksVM.Languages}"
-                      SelectedItem="{Binding BooksVM.SelectedBook.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                      SelectedItem="{Binding BooksVM.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <ComboBox x:Name="Format"
                       Grid.Column="1"
                       Grid.Row="6"
                       Margin="0 3"
                       IsEditable="False"
-                      DisplayMemberPath="Format1"
                       VerticalAlignment="Center"
+                      DisplayMemberPath="Format1"
                       ItemsSource="{Binding BooksVM.Formats}"
-                      SelectedItem="{Binding BooksVM.SelectedBook.Format, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                      SelectedItem="{Binding BooksVM.Format, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <ComboBox x:Name="GenreComBox"
                       Grid.Column="1"
@@ -169,21 +169,21 @@
                       DisplayMemberPath="Genre1"
                       VerticalAlignment="Center"
                       ItemsSource="{Binding BooksVM.Genres}"
-                      SelectedItem="{Binding BooksVM.SelectedBook.Genre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                      SelectedItem="{Binding BooksVM.Genre.Genre1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <TextBox x:Name="PriceTextBox"
                      Margin="0 3"
                      Grid.Column="1"
                      Grid.Row="8"
                      VerticalAlignment="Center"
-                     Text="{Binding BooksVM.SelectedBook.Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding BooksVM.CurrentBook.Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button Content="Save"
                     Grid.Column="0"
                     Grid.Row="9"
                     Margin="5 5"
                     VerticalAlignment="Center"
-                    Command="{Binding BooksVM.SaveNewBookCMD}" />
+                    Command="{Binding BooksVM.UpdateBookCMD}" />
 
             <Button x:Name="CancelEdit"
                     Content="Cancel"
