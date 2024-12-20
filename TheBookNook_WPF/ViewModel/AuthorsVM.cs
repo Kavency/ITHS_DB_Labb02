@@ -48,6 +48,11 @@ namespace TheBookNook_WPF.ViewModel
 
             return authors;
         }
-
+    private void CancelAdd(object obj)
+    {
+        MainWindowVM.DimBackgroundVisibility = Visibility.Hidden;
+        AddAuthorVisibility = Visibility.Hidden;
+        MainWindowVM.SideMenuIsEnabled = true;
+        CurrentAuthor = null;
     }
 }
