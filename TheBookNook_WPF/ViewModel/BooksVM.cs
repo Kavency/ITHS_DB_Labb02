@@ -42,13 +42,11 @@ namespace TheBookNook_WPF.ViewModel
         public Genre Genre { get => _genre; set { _genre = value; OnPropertyChanged(); } }
         public Format Format { get => _format; set { _format = value; OnPropertyChanged(); } }
         public ObservableCollection<Book>? Books { get => _books; private set { _books = value; OnPropertyChanged(); } }
-        //public ObservableCollection<Author>? Authors { get => _authors; set { _authors = value; OnPropertyChanged(); } }
         public ObservableCollection<Genre>? Genres { get => _genres; set { _genres = value; OnPropertyChanged(); } }
         public ObservableCollection<Format>? Formats { get => _formats; set { _formats = value; OnPropertyChanged(); } }
         public ObservableCollection<Language>? Languages { get => _languages; set { _languages = value; OnPropertyChanged(); } }
         public Visibility AddBookVisibility { get => _addBookVisibility; set { _addBookVisibility = value; OnPropertyChanged(); } }
         public Visibility EditBookVisibility { get => _editBookVisibility; set { _editBookVisibility = value; OnPropertyChanged(); } }
-        //public Visibility DimBackgroundVisibility { get => _dimBackgroundVisibility; set { _dimBackgroundVisibility = value; OnPropertyChanged(); } }
         public Visibility EditButtonVisibility { get => _editButtonVisibility; set { _editButtonVisibility = value; OnPropertyChanged(); } }
         public Visibility DeleteButtonVisibility { get => _deleteButtonVisibility; set { _deleteButtonVisibility = value; OnPropertyChanged(); } }
         public RelayCommand AddBookButtonCMD { get; }
@@ -146,8 +144,6 @@ namespace TheBookNook_WPF.ViewModel
 
             db.SaveChanges();
 
-            //TODO: Change visibility, Join Dim and Edit views
-            MainWindowVM.DimBackgroundVisibility = Visibility.Hidden;
             EditBookVisibility = Visibility.Hidden;
 
             CurrentBook = null;
@@ -166,7 +162,6 @@ namespace TheBookNook_WPF.ViewModel
 
         private void EditBookButtonClick(object obj)
         {
-            MainWindowVM.DimBackgroundVisibility = Visibility.Visible;
             EditBookVisibility = Visibility.Visible;
 
             Format = CurrentBook.Format;
@@ -185,22 +180,11 @@ namespace TheBookNook_WPF.ViewModel
         {
             using var db = new TheBookNookDbContext();
             Books = new ObservableCollection<Book>(db.Books.Include(b => b.Authors).Include(b => b.Format).Include(b => b.Genre).Include(b => b.Language).ToList());
-            //Authors = new ObservableCollection<Author>(db.Authors.Include(a => a.BookIsbns).ToList());
             Genres = new ObservableCollection<Genre>(db.Genres.AsNoTracking().ToList());
             Formats = new ObservableCollection<Format>(db.Formats.AsNoTracking().ToList());
             Languages = new ObservableCollection<Language>(db.Languages.AsNoTracking().ToList());
             db.DisposeAsync();
-            //AuthorFullName();
         }
-
-
-        //private void AuthorFullName()
-        //{
-        //    foreach (var author in Authors)
-        //    {
-        //        author.FullName = author.FirstName + " " + author.LastName;
-        //    }
-        //}
 
 
         private void AddBookButtonClick(object obj)
@@ -215,10 +199,7 @@ namespace TheBookNook_WPF.ViewModel
             if (obj is Button btn)
             {
                 if (btn.Name == "CancelEdit")
-                {
                     EditBookVisibility = Visibility.Hidden;
-                    MainWindowVM.DimBackgroundVisibility = Visibility.Hidden;
-                }
             }
 
             ClearProperties();
@@ -236,7 +217,7 @@ namespace TheBookNook_WPF.ViewModel
             //TODO: Validate input and add converters
             PrepareCurrentBook();
 
-            if (!MainWindowVM.Authors.Any(a => a.FullName == AuthorNameString))
+            if (!MainWindowVM.AuthorsVM.Authors.Any(a => a.FullName == AuthorNameString))
             {
                 author = AddAuthorToDB();
             }
@@ -279,11 +260,11 @@ namespace TheBookNook_WPF.ViewModel
 
             using var db = new TheBookNookDbContext();
 
-            authorId = MainWindowVM.Authors.Where(x => $"{x.FirstName} {x.LastName}"
+            authorId = MainWindowVM.AuthorsVM.Authors.Where(x => $"{x.FirstName} {x.LastName}"
                               .Equals(AuthorNameString, StringComparison.OrdinalIgnoreCase))
                               .Select(x => x.Id).FirstOrDefault();
 
-            return author = MainWindowVM.Authors.First(x => x.Id == authorId);
+            return author = MainWindowVM.AuthorsVM.Authors.First(x => x.Id == authorId);
         }
 
         private Author AddAuthorToDB()
@@ -318,15 +299,9 @@ namespace TheBookNook_WPF.ViewModel
         private void SwitchVisibility(bool showForms)
         {
             if (showForms)
-            {
-                MainWindowVM.DimBackgroundVisibility = Visibility.Visible;
                 AddBookVisibility = Visibility.Visible;
-            }
             else
-            {
-                MainWindowVM.DimBackgroundVisibility = Visibility.Hidden;
                 AddBookVisibility = Visibility.Hidden;
-            }
         }
     }
 }
