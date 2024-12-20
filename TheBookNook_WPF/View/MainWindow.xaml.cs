@@ -29,23 +29,6 @@ namespace TheBookNook_WPF
             this.WindowState = WindowState.Minimized;
         }
 
-        private void MaximizeWindow_Click(object sender, RoutedEventArgs e)
-        {
-            if (isMaximized)
-            {
-                this.WindowState = WindowState.Normal;
-                this.Width = 1080;
-                this.Height = 720;
-
-                isMaximized = false;
-            }
-            else
-            {
-                this.WindowState = WindowState.Maximized;
-                isMaximized = true;
-            }
-        }
-
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

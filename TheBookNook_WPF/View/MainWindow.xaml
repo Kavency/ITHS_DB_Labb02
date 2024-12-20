@@ -42,7 +42,7 @@
             BorderThickness="2"
             CornerRadius="20"
             MouseDown="MoveMainWindow_MouseDown"
-            IsEnabled="{Binding MainWindowIsEnabled}">
+            >
 
         <Grid>
             <Grid.RowDefinitions>
@@ -210,13 +210,7 @@
                             Click="MinimizeWindow_Click">
                         <fa:IconBlock Icon="WindowMinimize" />
                     </Button>
-                    <Button Margin="0, 0, 10, 0"
-                            FontSize="20"
-                            HorizontalAlignment="Right"
-                            Style="{StaticResource windowButtons}"
-                            Click="MaximizeWindow_Click">
-                        <fa:IconBlock Icon="WindowMaximize" />
-                    </Button>
+                    
                     <Button Margin="0, 0, 20, 0"
                             FontSize="20"
                             HorizontalAlignment="Right"
