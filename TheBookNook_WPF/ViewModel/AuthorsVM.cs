@@ -25,7 +25,12 @@ namespace TheBookNook_WPF.ViewModel
 
     public AuthorsVM(MainWindowVM mainWindowVM)
         {
-            LoadAuthorsAsync();
+        _mainWindowVM = mainWindowVM;
+        //_currentAuthor = new Author();
+
+        AddAuthorButtonCMD = new RelayCommand(AddAuthor);
+        SaveAuthorButtonCMD = new RelayCommand(SaveAuhorToDB);
+        AddCancelButtonCMD = new RelayCommand(CancelAdd);
         }
 
         private async void LoadAuthorsAsync()
