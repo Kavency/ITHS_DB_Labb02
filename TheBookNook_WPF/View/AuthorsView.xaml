@@ -47,7 +47,7 @@
                 <DataGridTextColumn Header="Last Name"
                                     Binding="{Binding LastName}" />
                 <DataGridTextColumn Header="Birthdate"
-                                    Binding="{Binding BirthDate}" />
+                                    Binding="{Binding BirthDate, StringFormat=yyyy-MM-dd}" />
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>
