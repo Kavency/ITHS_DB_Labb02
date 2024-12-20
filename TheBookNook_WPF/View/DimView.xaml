@@ -10,6 +10,8 @@
              Width="1080">
     <Border Background="#2F4550"
             BorderThickness="2"
-        CornerRadius="20">
+            CornerRadius="20"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch">
     </Border>
 </UserControl>
