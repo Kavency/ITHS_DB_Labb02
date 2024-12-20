@@ -1,8 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Windows;
 using TheBookNook_WPF.Model;
 
-namespace TheBookNook_WPF.ViewModel
-{
+namespace TheBookNook_WPF.ViewModel;
+
     public class AuthorsVM : VMBase
     {
     #region Fields
