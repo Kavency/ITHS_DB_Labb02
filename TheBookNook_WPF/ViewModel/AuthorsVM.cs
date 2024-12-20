@@ -11,6 +11,7 @@ public class AuthorsVM : VMBase
     private Author? _currentAuthor;
     private ObservableCollection<Author>? _authors;
     private Visibility _AuthorDetailsVisibility = Visibility.Hidden;
+    private Visibility _editButtonVisibility = Visibility.Hidden;
     private Visibility _deleteButtonVisibility = Visibility.Hidden;
     private int _authorId;
     private string _authorFirstName;
@@ -22,6 +23,7 @@ public class AuthorsVM : VMBase
     public MainWindowVM MainWindowVM { get => _mainWindowVM; set => _mainWindowVM = value; }
     public ObservableCollection<Author>? Authors { get => _authors; set { _authors = value; OnPropertyChanged(); } }
     public Visibility AuthorDetailsVisibility { get => _AuthorDetailsVisibility; set { _AuthorDetailsVisibility = value; OnPropertyChanged(); } }
+    public Visibility EditButtonVisibility { get => _editButtonVisibility; set { _editButtonVisibility = value; OnPropertyChanged(); } }
     public Visibility DeleteButtonVisibility { get => _deleteButtonVisibility; set { _deleteButtonVisibility = value; OnPropertyChanged(); } }
     public int AuthorId { get => _authorId; set { _authorId = value; OnPropertyChanged(); } }
     public string AuthorFirstName { get => _authorFirstName; set { _authorFirstName = value; OnPropertyChanged(); } }
@@ -46,10 +48,12 @@ public class AuthorsVM : VMBase
                 AuthorLastName = _currentAuthor.LastName;
                 AuthorBirthDate = _currentAuthor.BirthDate;
 
+                EditButtonVisibility = Visibility.Visible;
                 DeleteButtonVisibility = Visibility.Visible;
             }
             else
             {
+                EditButtonVisibility = Visibility.Hidden;
                 DeleteButtonVisibility = Visibility.Hidden;
             }
         }
@@ -168,7 +172,7 @@ public class AuthorsVM : VMBase
     {
         AuthorDetailsVisibility = Visibility.Hidden;
         MainWindowVM.SideMenuIsEnabled = true;
-        CurrentAuthor = null;
+        ResetAuthorProperties();
     }
     #endregion
 }
