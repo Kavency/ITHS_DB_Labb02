@@ -154,7 +154,8 @@
                         <Button Style="{StaticResource SidebarExitButton}"
                                 DockPanel.Dock="Bottom"
                                 VerticalAlignment="Bottom"
-                                Margin="30, 0, 0, 10">
+                                Margin="30, 0, 0, 10"
+                                Click="ExitButton_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconBlock Icon="ArrowRightFromBracket"
                                               Foreground="#F4F4F9"
