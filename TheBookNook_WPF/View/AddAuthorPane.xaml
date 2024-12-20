@@ -32,7 +32,7 @@
                 
             </Grid.RowDefinitions>
 
-            <TextBlock Text="ADD AUTHOR"
+            <TextBlock Text="AUTHOR DETAILS"
                        Grid.ColumnSpan="2"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Bottom"
@@ -85,9 +85,8 @@
                         VerticalContentAlignment="Center"
                         Text="{Binding AuthorsVM.CurrentAuthor.BirthDate, Mode=TwoWay}" />
 
-            
-
             <Button Content="Save"
+                    Style="{StaticResource addEditRecordButton}"
                     Grid.Column="0"
                     Grid.Row="4"
                     Margin="5 5"
@@ -95,6 +94,7 @@
                     Command="{Binding AuthorsVM.SaveAuthorButtonCMD}" />
 
             <Button Content="Cancel"
+                    Style="{StaticResource addEditRecordButton}"
                     Grid.Column="1"
                     Grid.Row="4"
                     Margin="5 5"
