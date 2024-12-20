@@ -22,39 +22,36 @@
                        DockPanel.Dock="left" />
             <Button DockPanel.Dock="Right"
                     Style="{StaticResource addEditRecordButton}"
-                    Margin="5 15"
-                    Padding="10"
+                    
                     Command="{Binding AddBookButtonCMD}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Plus"
                                   Width="20"
                                   Height="12"
                                   Margin="0, 0, 8, 0" />
-                    <TextBlock Text="Add Record" />
+                    <TextBlock Text="Add Book" />
                 </StackPanel>
             </Button>
             <Button DockPanel.Dock="Right"
                     Style="{StaticResource addEditRecordButton}"
-                    Margin="5 15"
-                    Padding="10"
+                    Margin="0 0 5 -20"
+                    
                     Command="{Binding DeleteBookButtonCMD}"
-                    Visibility="{Binding EditButtonVisibility}">
+                    Visibility="{Binding EditButtonVisibility}"
+                    Width="45">
                 <StackPanel Orientation="Horizontal">
-                    <fa:IconBlock Icon="TrashCan"
-                                  Width="20"
-                                  Height="12"/>
+                    <fa:IconBlock Icon="TrashCan"/>
                 </StackPanel>
             </Button>
             <Button DockPanel.Dock="Right"
+                    Width="45"
                     Style="{StaticResource addEditRecordButton}"
-                    Margin="5 15"
-                    Padding="10"
+                    Margin="0 0 5 -20"
+                    
                     Command="{Binding EditBookButtonCMD}"
                     Visibility="{Binding EditButtonVisibility}">
                 <StackPanel Orientation="Horizontal">
-                    <fa:IconBlock Icon="Edit"
-                                  Width="20"
-                                  Height="12" />
+                    <fa:IconBlock Icon="Edit"/>
                 </StackPanel>
             </Button>
         </DockPanel>

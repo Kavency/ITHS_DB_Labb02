@@ -33,16 +33,20 @@
         </Storyboard>
     </Window.Resources>
 
+    <!--Background="#2F4550"-->
+
     <Window.DataContext>
         <vm:MainWindowVM />
     </Window.DataContext>
 
-    <Border Background="#2F4550"
-            BorderBrush="#F2AF0D"
+    <Border BorderBrush="#F2AF0D"
             BorderThickness="2"
             CornerRadius="20"
-            MouseDown="MoveMainWindow_MouseDown"
-            >
+            MouseDown="MoveMainWindow_MouseDown">
+        <Border.Background>
+            <ImageBrush ImageSource="/Resources/LoginBackGround.jpeg"
+                        Stretch="UniformToFill" />
+        </Border.Background>
 
         <Grid>
             <Grid.RowDefinitions>
@@ -73,17 +77,11 @@
                         <Border Width="80"
                                 Height="80"
                                 Padding="3"
-                                Background="#F2AF0D"
-                                CornerRadius="40"
                                 DockPanel.Dock="Top"
                                 HorizontalAlignment="Center"
                                 Margin="0 -40 0 0">
-                            <Ellipse>
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Resources/Logo.png"
-                                                Stretch="Fill" />
-                                </Ellipse.Fill>
-                            </Ellipse>
+                            <Image Source="/Resources/Logo.png"
+                                   Stretch="Fill" />
                         </Border>
 
                         <TextBlock Text="John"
@@ -138,7 +136,7 @@
                                     <TextBlock Text="Authors" />
                                 </StackPanel>
                             </RadioButton>
-                            
+
                             <RadioButton Style="{StaticResource sidebarRadioButtonTheme}"
                                          Command="{Binding ShowStoresViewCMD}">
                                 <StackPanel Orientation="Horizontal"
@@ -163,13 +161,11 @@
                                 <TextBlock Text="Exit" />
                             </StackPanel>
                         </Button>
-                        
 
                     </DockPanel>
                 </Border>
             </Grid>
 
-            
             <!-- Main area -->
             <Grid Grid.Column="1"
                   Margin="30,20,20,20"
@@ -179,8 +175,7 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                
-                
+
                 <!-- Window buttons -->
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right"
@@ -193,7 +188,7 @@
                             Click="MinimizeWindow_Click">
                         <fa:IconBlock Icon="WindowMinimize" />
                     </Button>
-                    
+
                     <Button Margin="0, 0, 20, 0"
                             FontSize="20"
                             HorizontalAlignment="Right"
@@ -203,16 +198,10 @@
                     </Button>
                 </StackPanel>
 
-                
                 <!-- Main area views -->
                 <ContentControl Grid.Column="1"
                                 Grid.Row="2"
                                 Content="{Binding CurrentView, Mode=TwoWay}" />
-
-                <views:DimView Grid.Column="1"
-                               Grid.Row="2"
-                               Margin="-5"
-                               Visibility="{Binding DimBackgroundVisibility}" />
 
                 <views:AddBookPane Grid.Column="1"
                                    Grid.Row="2"
@@ -221,10 +210,10 @@
                 <views:EditBookPane Grid.Column="1"
                                     Grid.Row="2"
                                     Visibility="{Binding BooksVM.EditBookVisibility}" />
+
                 <views:AddAuthorPane Grid.Column="1"
-                                   Grid.Row="2"
-                                     Visibility="{Binding AuthorsVM.AddAuthorVisibility}" />
-                
+                                     Grid.Row="2"
+                                     Visibility="{Binding AuthorsVM.AuthorDetailsVisibility}" />
 
             </Grid>
         </Grid>

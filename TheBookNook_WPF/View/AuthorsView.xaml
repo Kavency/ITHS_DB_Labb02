@@ -35,6 +35,16 @@
                     <fa:IconBlock Icon="TrashCan" />
                 </StackPanel>
             </Button>
+            <Button DockPanel.Dock="Right"
+                    Width="45"
+                    Style="{StaticResource addEditRecordButton}"
+                    Margin="0 0 5 -20"
+                    Command="{Binding AddAuthorButtonCMD}"
+                    Visibility="{Binding EditButtonVisibility}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconBlock Icon="Edit" />
+                </StackPanel>
+            </Button>
         </DockPanel>
 
         <Separator Height="1"
