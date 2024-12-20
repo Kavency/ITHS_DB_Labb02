@@ -20,7 +20,6 @@ namespace TheBookNook_WPF.ViewModel
         public HomeVM HomeVM { get; set; }
         public BooksVM BooksVM { get; set; }
         public AuthorsVM AuthorsVM { get; set; }
-        public CustomersVM CustomersVM { get; set; }
         public StoresVM StoresVM { get; set; }
         public Visibility DimBackgroundVisibility { get => _dimBackgroundVisibility; set { _dimBackgroundVisibility = value; OnPropertyChanged(); } }
         public RelayCommand ShowHomeViewCMD { get; set; }
@@ -38,7 +37,6 @@ namespace TheBookNook_WPF.ViewModel
             this.HomeVM = new HomeVM();
             this.BooksVM = new BooksVM(this);
             this.AuthorsVM = new AuthorsVM(this);
-            this.CustomersVM = new CustomersVM();
             this.StoresVM = new StoresVM();
 
             _authors = new ObservableCollection<Author>();
@@ -48,7 +46,6 @@ namespace TheBookNook_WPF.ViewModel
             ShowHomeViewCMD = new RelayCommand(x => { CurrentView = HomeVM; ClearAllSelected(); });
             ShowBookViewCMD = new RelayCommand(x => { CurrentView = BooksVM; ClearAllSelected(); });
             ShowAuthorsViewCMD = new RelayCommand(x => { CurrentView = AuthorsVM; ClearAllSelected(); });
-            ShowCustomersViewCMD = new RelayCommand(x => { CurrentView = CustomersVM; ClearAllSelected(); });
             ShowStoresViewCMD = new RelayCommand(x => { CurrentView = StoresVM; ClearAllSelected(); });
 
             LoadAuthorsAsync();
