@@ -5,9 +5,25 @@ namespace TheBookNook_WPF.ViewModel
 {
     public class AuthorsVM : VMBase
     {
-        public ObservableCollection<Author>? Authors { get; private set; }
+    #region Fields
+    private MainWindowVM _mainWindowVM;
+    private Author? _currentAuthor;
+    private Visibility _addAuthorVisibility = Visibility.Hidden;
+    private Visibility _editAuthorVisibility;
+    #endregion
 
-        public AuthorsVM()
+    #region Properties
+    public MainWindowVM MainWindowVM { get => _mainWindowVM; set => _mainWindowVM = value; }
+    public Visibility AddAuthorVisibility { get => _addAuthorVisibility; set { _addAuthorVisibility = value; OnPropertyChanged(); } }
+    public Visibility EditAuthorVisibility { get => _editAuthorVisibility; set { _editAuthorVisibility = value; OnPropertyChanged(); } }
+    public Author? CurrentAuthor { get => _currentAuthor; set { _currentAuthor = value; OnPropertyChanged(); } }
+    public RelayCommand AddAuthorButtonCMD { get; }
+    public RelayCommand SaveAuthorButtonCMD { get; }
+    public RelayCommand AddCancelButtonCMD { get; }
+    #endregion
+
+
+    public AuthorsVM(MainWindowVM mainWindowVM)
         {
             LoadAuthorsAsync();
         }
