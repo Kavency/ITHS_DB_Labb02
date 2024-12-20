@@ -128,10 +128,9 @@
                       Grid.Column="1"
                       Grid.Row="3"
                       Margin="0 3"
-                      IsEditable="True"
                       DisplayMemberPath="FullName"
                       VerticalAlignment="Center"
-                      ItemsSource="{Binding BooksVM.Authors}"
+                      ItemsSource="{Binding Authors}"
                       Text="{Binding BooksVM.AuthorNameString}" />
 
             <DatePicker x:Name="RealeaseDateTextBox"
@@ -139,7 +138,7 @@
                         Grid.Row="4"
                         Margin="0 3"
                         VerticalContentAlignment="Center"
-                        Text="{Binding BooksVM.NewBook.ReleaseDate, Mode=TwoWay}" />
+                        Text="{Binding BooksVM.CurrentBook.ReleaseDate, Mode=TwoWay}" />
 
             <ComboBox x:Name="LanguageComboBox"
                       Grid.Column="1"
@@ -149,7 +148,7 @@
                       DisplayMemberPath="Language1"
                       VerticalAlignment="Center"
                       ItemsSource="{Binding BooksVM.Languages}"
-                      SelectedItem="{Binding BooksVM.Language}" />
+                      SelectedItem="{Binding BooksVM.CurrentBook.Language}" />
 
             <ComboBox x:Name="Format"
                       Grid.Column="1"
@@ -159,7 +158,7 @@
                       DisplayMemberPath="Format1"
                       VerticalAlignment="Center"
                       ItemsSource="{Binding BooksVM.Formats}"
-                      SelectedItem="{Binding BooksVM.Format}" />
+                      SelectedItem="{Binding BooksVM.CurrentBook.Format}" />
 
             <ComboBox x:Name="GenreComBox"
                       Grid.Column="1"
@@ -169,7 +168,7 @@
                       DisplayMemberPath="Genre1"
                       VerticalAlignment="Center"
                       ItemsSource="{Binding BooksVM.Genres}"
-                      SelectedItem="{Binding BooksVM.Genre}" />
+                      SelectedItem="{Binding BooksVM.CurrentBook.Genre}" />
 
             <TextBox x:Name="PriceTextBox"
                      Margin="0 3"

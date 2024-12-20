@@ -21,6 +21,7 @@
                        Foreground="#F4F4F9"
                        DockPanel.Dock="left" />
             <Button DockPanel.Dock="Right"
+                    Style="{StaticResource addEditRecordButton}"
                     Margin="5 15"
                     Padding="10"
                     Command="{Binding AddBookButtonCMD}">
@@ -33,6 +34,7 @@
                 </StackPanel>
             </Button>
             <Button DockPanel.Dock="Right"
+                    Style="{StaticResource addEditRecordButton}"
                     Margin="5 15"
                     Padding="10"
                     Command="{Binding DeleteBookButtonCMD}"
@@ -44,6 +46,7 @@
                 </StackPanel>
             </Button>
             <Button DockPanel.Dock="Right"
+                    Style="{StaticResource addEditRecordButton}"
                     Margin="5 15"
                     Padding="10"
                     Command="{Binding EditBookButtonCMD}"
@@ -63,12 +66,9 @@
         <DataGrid x:Name="BooksDG"
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
+                  AlternatingRowBackground="AliceBlue"
                   ItemsSource="{Binding Books}"
-                  SelectedItem="{Binding SelectedBook}">
-            <!--Style="{StaticResource DGStyle}"
-                  ColumnHeaderStyle="{StaticResource DGColumnHeaderStyle}"
-                  RowStyle="{StaticResource DGRowStyle}"
-                  CellStyle="{StaticResource DGCellStyle}">-->
+                  SelectedItem="{Binding CurrentBook}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ISBN"
                                     Binding="{Binding Isbn}" />

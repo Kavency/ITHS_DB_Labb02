@@ -19,13 +19,14 @@
                        Foreground="#F4F4F9"
                        DockPanel.Dock="left" />
             <Button Style="{StaticResource addEditRecordButton}"
-                    DockPanel.Dock="Right">
+                    DockPanel.Dock="Right"
+                    Command="{Binding AddAuthorButtonCMD}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Plus"
                                   Width="11"
                                   Height="11"
                                   Margin="0, 0, 8, 0" />
-                    <TextBlock Text="Add record" />
+                    <TextBlock Text="Add Author"/>
                 </StackPanel>
             </Button>
         </DockPanel>
@@ -34,11 +35,10 @@
                    Background="#F2AF0D"
                    Margin="0, -1, 0, 10" />
 
-        <DataGrid x:Name="BooksDG"
-                  IsReadOnly="True"
+        <DataGrid IsReadOnly="True"
                   AutoGenerateColumns="False"
                   ColumnWidth="auto"
-                  ItemsSource="{Binding Authors}">
+                  ItemsSource="{Binding DataContext.Authors, RelativeSource={RelativeSource AncestorType=Window}}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id"
                                     Binding="{Binding Id}" />

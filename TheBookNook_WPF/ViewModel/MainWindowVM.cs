@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
+using TheBookNook_WPF.Model;
 
 namespace TheBookNook_WPF.ViewModel
 {
@@ -6,31 +8,27 @@ namespace TheBookNook_WPF.ViewModel
     {
         #region Fields
         private object _currentView;
-        private bool _mainWindowIsEnabled = true;
+        private bool _sideMenuIsEnabled = true;
+        private ObservableCollection<Author>? _authors;
+        private Visibility _dimBackgroundVisibility = Visibility.Hidden;
         #endregion
 
 
-        #region Auto properties
+        #region Properties
+        public object CurrentView { get { return _currentView; } set { _currentView = value; OnPropertyChanged(); } }
+        public bool SideMenuIsEnabled { get => _sideMenuIsEnabled; set { _sideMenuIsEnabled = value; OnPropertyChanged(); } }
         public HomeVM HomeVM { get; set; }
         public BooksVM BooksVM { get; set; }
         public AuthorsVM AuthorsVM { get; set; }
         public CustomersVM CustomersVM { get; set; }
         public StoresVM StoresVM { get; set; }
-        public bool MainWindowIsEnabled { get => _mainWindowIsEnabled; set { _mainWindowIsEnabled = value; OnPropertyChanged(); } }
+        public Visibility DimBackgroundVisibility { get => _dimBackgroundVisibility; set { _dimBackgroundVisibility = value; OnPropertyChanged(); } }
         public RelayCommand ShowHomeViewCMD { get; set; }
         public RelayCommand ShowBookViewCMD { get; set; }
         public RelayCommand ShowAuthorsViewCMD { get; set; }
         public RelayCommand ShowCustomersViewCMD { get; set; }
         public RelayCommand ShowStoresViewCMD { get; set; }
-        #endregion
-
-
-        #region Properties
-        public object CurrentView
-        {
-            get { return _currentView; }
-            set { _currentView = value; OnPropertyChanged(); }
-        }
+        public ObservableCollection<Author>? Authors { get => _authors; set { _authors = value; OnPropertyChanged(); } }
 
         #endregion
 
@@ -38,21 +36,54 @@ namespace TheBookNook_WPF.ViewModel
         public MainWindowVM()
         {
             this.HomeVM = new HomeVM();
-            this.BooksVM = new BooksVM();
-            this.AuthorsVM = new AuthorsVM();
+            this.BooksVM = new BooksVM(this);
+            this.AuthorsVM = new AuthorsVM(this);
             this.CustomersVM = new CustomersVM();
             this.StoresVM = new StoresVM();
 
+            _authors = new ObservableCollection<Author>();
+
             CurrentView = HomeVM;
 
+            ShowHomeViewCMD = new RelayCommand(x => { CurrentView = HomeVM; ClearAllSelected(); });
+            ShowBookViewCMD = new RelayCommand(x => { CurrentView = BooksVM; ClearAllSelected(); });
+            ShowAuthorsViewCMD = new RelayCommand(x => { CurrentView = AuthorsVM; ClearAllSelected(); });
+            ShowCustomersViewCMD = new RelayCommand(x => { CurrentView = CustomersVM; ClearAllSelected(); });
+            ShowStoresViewCMD = new RelayCommand(x => { CurrentView = StoresVM; ClearAllSelected(); });
 
-            ShowHomeViewCMD = new RelayCommand(x => CurrentView = HomeVM);
-            ShowBookViewCMD = new RelayCommand(x => CurrentView = BooksVM);
-            ShowAuthorsViewCMD = new RelayCommand(x => CurrentView = AuthorsVM);
-            ShowCustomersViewCMD = new RelayCommand(x => CurrentView = CustomersVM);
-            ShowStoresViewCMD = new RelayCommand(x => CurrentView = StoresVM);
+            LoadAuthorsAsync();
+            AuthorFullName();
         }
 
-        
+        #region Methods
+        private async void LoadAuthorsAsync()
+        {
+            var data = await Task.Run(() => GetDataFromDatabase());
+
+            Authors = data;
+            OnPropertyChanged(nameof(Authors));
+        }
+
+        private ObservableCollection<Author> GetDataFromDatabase()
+        {
+            using var db = new TheBookNookDbContext();
+            var authors = new ObservableCollection<Author>(db.Authors.ToList());
+
+            return authors;
+        }
+
+        private void AuthorFullName()
+        {
+            foreach (var author in Authors)
+            {
+                author.FullName = author.FirstName + " " + author.LastName;
+            }
+        }
+
+        private void ClearAllSelected()
+        {
+            BooksVM.CurrentBook = null;
+        }
+        #endregion
     }
 }
