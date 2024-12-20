@@ -102,7 +102,6 @@ public class AuthorsVM : VMBase
 
     private void AddAuthor(object obj)
     {
-        MainWindowVM.DimBackgroundVisibility = Visibility.Visible;
         AuthorDetailsVisibility = Visibility.Visible;
         MainWindowVM.SideMenuIsEnabled = false;
     }
@@ -167,7 +166,6 @@ public class AuthorsVM : VMBase
 
     private void CloseAuthorDetails(object obj)
     {
-        MainWindowVM.DimBackgroundVisibility = Visibility.Hidden;
         AuthorDetailsVisibility = Visibility.Hidden;
         MainWindowVM.SideMenuIsEnabled = true;
         CurrentAuthor = null;

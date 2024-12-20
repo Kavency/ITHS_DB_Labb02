@@ -11,13 +11,11 @@ namespace TheBookNook_WPF.ViewModel
         #region Fields
         private Book _currentBook;
         private ObservableCollection<Book>? _books;
-        //private ObservableCollection<Author>? _authors;
         private ObservableCollection<Genre>? _genres;
         private ObservableCollection<Format>? _formats;
         private ObservableCollection<Language>? _languages;
         private Visibility _addBookVisibility = Visibility.Hidden;
         private Visibility _editBookVisibility = Visibility.Hidden;
-        //private Visibility _dimBackgroundVisibility = Visibility.Hidden;
         private Visibility _editButtonVisibility = Visibility.Hidden;
         private Visibility _deleteButtonVisibility = Visibility.Hidden;
         private Author _author;

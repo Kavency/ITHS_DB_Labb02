@@ -21,7 +21,6 @@ namespace TheBookNook_WPF.ViewModel
         public BooksVM BooksVM { get; set; }
         public AuthorsVM AuthorsVM { get; set; }
         public StoresVM StoresVM { get; set; }
-        public Visibility DimBackgroundVisibility { get => _dimBackgroundVisibility; set { _dimBackgroundVisibility = value; OnPropertyChanged(); } }
         public RelayCommand ShowHomeViewCMD { get; set; }
         public RelayCommand ShowBookViewCMD { get; set; }
         public RelayCommand ShowAuthorsViewCMD { get; set; }
