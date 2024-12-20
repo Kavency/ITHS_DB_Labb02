@@ -3,8 +3,8 @@ using TheBookNook_WPF.Model;
 
 namespace TheBookNook_WPF.ViewModel;
 
-    public class AuthorsVM : VMBase
-    {
+public class AuthorsVM : VMBase
+{
     #region Fields
     private MainWindowVM _mainWindowVM;
     private Author? _currentAuthor;
@@ -24,28 +24,28 @@ namespace TheBookNook_WPF.ViewModel;
 
 
     public AuthorsVM(MainWindowVM mainWindowVM)
-        {
+    {
         _mainWindowVM = mainWindowVM;
         //_currentAuthor = new Author();
 
         AddAuthorButtonCMD = new RelayCommand(AddAuthor);
         SaveAuthorButtonCMD = new RelayCommand(SaveAuhorToDB);
         AddCancelButtonCMD = new RelayCommand(CancelAdd);
-        }
+    }
 
 
     private void AddAuthor(object obj)
-        {
+    {
         MainWindowVM.DimBackgroundVisibility = Visibility.Visible;
         AddAuthorVisibility = Visibility.Visible;
         MainWindowVM.SideMenuIsEnabled = false;
 
         CurrentAuthor = new Author();
-        }
+    }
     private void SaveAuhorToDB(object obj)
     {
         Author author = new();
-
+        
         if(CurrentAuthor != null)
         {
             author.FirstName = CurrentAuthor.FirstName;
@@ -61,7 +61,7 @@ namespace TheBookNook_WPF.ViewModel;
 
 
 
-            using var db = new TheBookNookDbContext();
+        using var db = new TheBookNookDbContext();
 
 
         MainWindowVM.Authors.Add(author);
@@ -69,7 +69,7 @@ namespace TheBookNook_WPF.ViewModel;
         db.SaveChanges();
 
         CancelAdd(obj);
-        }
+    }
     private void CancelAdd(object obj)
     {
         MainWindowVM.DimBackgroundVisibility = Visibility.Hidden;
