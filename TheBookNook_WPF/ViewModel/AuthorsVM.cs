@@ -33,20 +33,42 @@ namespace TheBookNook_WPF.ViewModel;
         AddCancelButtonCMD = new RelayCommand(CancelAdd);
         }
 
-        private async void LoadAuthorsAsync()
-        {
-            var data = await Task.Run(() => GetDataFromDatabase());
 
-            Authors = data;
-            OnPropertyChanged("Authors");
+    private void AddAuthor(object obj)
+        {
+        MainWindowVM.DimBackgroundVisibility = Visibility.Visible;
+        AddAuthorVisibility = Visibility.Visible;
+        MainWindowVM.SideMenuIsEnabled = false;
+
+        CurrentAuthor = new Author();
         }
+    private void SaveAuhorToDB(object obj)
+    {
+        Author author = new();
 
-        private ObservableCollection<Author> GetDataFromDatabase()
+        if(CurrentAuthor != null)
         {
-            using var db = new TheBookNookDbContext();
-            var authors = new ObservableCollection<Author>(db.Authors.ToList());
+            author.FirstName = CurrentAuthor.FirstName;
+            author.LastName = CurrentAuthor.LastName;
+            author.BirthDate = CurrentAuthor.BirthDate;
 
-            return authors;
+            // sparar ändring
+            // return
+        }
+        // else
+        // Skapa ny ny författare
+        // return
+
+
+
+            using var db = new TheBookNookDbContext();
+
+
+        MainWindowVM.Authors.Add(author);
+        db.Authors.Add(author);
+        db.SaveChanges();
+
+        CancelAdd(obj);
         }
     private void CancelAdd(object obj)
     {
@@ -56,3 +78,4 @@ namespace TheBookNook_WPF.ViewModel;
         CurrentAuthor = null;
     }
 }
+
