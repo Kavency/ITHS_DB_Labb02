@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:TheBookNook_WPF"
              xmlns:vm="clr-namespace:TheBookNook_WPF.ViewModel"
              xmlns:view="clr-namespace:TheBookNook_WPF.View"
-             StartupUri="View/LoginView.xaml"
+             StartupUri="View/MainWindow.xaml"
              xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
     <Application.Resources>
         
