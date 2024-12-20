@@ -138,16 +138,7 @@
                                     <TextBlock Text="Authors" />
                                 </StackPanel>
                             </RadioButton>
-                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}"
-                                         Command="{Binding ShowCustomersViewCMD}">
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="10 0 0 0">
-                                    <fa:IconBlock Icon="PeopleGroup"
-                                                  Foreground="#F4F4F9"
-                                                  Margin="0, 0, 15, 0" />
-                                    <TextBlock Text="Customers" />
-                                </StackPanel>
-                            </RadioButton>
+                            
                             <RadioButton Style="{StaticResource sidebarRadioButtonTheme}"
                                          Command="{Binding ShowStoresViewCMD}">
                                 <StackPanel Orientation="Horizontal"
