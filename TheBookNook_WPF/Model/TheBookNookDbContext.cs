@@ -6,12 +6,11 @@ public partial class TheBookNookDbContext : DbContext
 {
     public TheBookNookDbContext(){ }
 
-    public TheBookNookDbContext(DbContextOptions<TheBookNookDbContext> options)
-        : base(options){ }
+    public TheBookNookDbContext(DbContextOptions<TheBookNookDbContext> options) : base(options){ }
 
     public virtual DbSet<Author> Authors { get; set; }
 
-    //public virtual DbSet<AuthorBook> AuthorBook { get; set; }
+    public virtual DbSet<AuthorBook> AuthorBook { get; set; }
 
     public virtual DbSet<Book> Books { get; set; }
 
@@ -50,6 +49,36 @@ public partial class TheBookNookDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Genererad av EF Tools Scaffolding
+
+        //modelBuilder.Entity<Author>(entity =>
+        //{
+        //    entity.Property(e => e.Id).HasColumnName("ID");
+        //    entity.Property(e => e.FirstName).HasMaxLength(255);
+        //    entity.Property(e => e.LastName).HasMaxLength(255);
+
+        //    entity.HasMany(d => d.BookIsbns).WithMany(p => p.Authors)
+        //        .UsingEntity<Dictionary<string, object>>(
+        //            "AuthorBook",
+        //            r => r.HasOne<Book>().WithMany()
+        //                .HasForeignKey("BookIsbn")
+        //                .OnDelete(DeleteBehavior.Cascade)
+        //                .HasConstraintName("FK_AuthorBook_Books"),
+        //            l => l.HasOne<Author>().WithMany()
+        //                .HasForeignKey("AuthorId")
+        //                .OnDelete(DeleteBehavior.Cascade)
+        //                .HasConstraintName("FK_AuthorBook_Authors"),
+        //            j =>
+        //            {
+        //                j.HasKey("AuthorId", "BookIsbn");
+        //                j.ToTable("AuthorBook");
+        //                j.IndexerProperty<int>("AuthorId").HasColumnName("AuthorID");
+        //                j.IndexerProperty<long>("BookIsbn").HasColumnName("BookISBN");
+        //            });
+        //});
+
+
+        // Egen
         modelBuilder.Entity<Author>(entity =>
         {
             entity.Property(e => e.Id).HasColumnName("ID");
@@ -57,22 +86,21 @@ public partial class TheBookNookDbContext : DbContext
             entity.Property(e => e.LastName).HasMaxLength(255);
 
             entity.HasMany(d => d.BookIsbns).WithMany(p => p.Authors)
-                .UsingEntity<Dictionary<string, object>>(
-                    "AuthorBook",
-                    r => r.HasOne<Book>().WithMany()
-                        .HasForeignKey("BookIsbn")
+                .UsingEntity<AuthorBook>(
+                    j => j.HasOne(pt => pt.Book).WithMany(t => t.AuthorBooks)
+                        .HasForeignKey(pt => pt.Isbn)
                         .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("FK_AuthorBook_Books"),
-                    l => l.HasOne<Author>().WithMany()
-                        .HasForeignKey("AuthorId")
+                    j => j.HasOne(pt => pt.Author).WithMany(p => p.AuthorBooks)
+                        .HasForeignKey(pt => pt.AuthorId)
                         .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("FK_AuthorBook_Authors"),
                     j =>
                     {
-                        j.HasKey("AuthorId", "BookIsbn");
+                        j.HasKey(t => new { t.AuthorId, t.Isbn });
                         j.ToTable("AuthorBook");
-                        j.IndexerProperty<int>("AuthorId").HasColumnName("AuthorID");
-                        j.IndexerProperty<long>("BookIsbn").HasColumnName("BookISBN");
+                        j.Property(pt => pt.AuthorId).HasColumnName("AuthorID");
+                        j.Property(pt => pt.Isbn).HasColumnName("BookISBN");
                     });
         });
 
@@ -335,26 +363,20 @@ public partial class TheBookNookDbContext : DbContext
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
         });
 
-        //modelBuilder.Entity<AuthorBook>(entity =>
-        //{
-        //    entity
-        //        .HasKey(ba => new { ba.BookIsbn, ba.AuthorId });
-        //});
+        modelBuilder.Entity<AuthorBook>()
+            .HasKey(ba => new { ba.AuthorId, ba.Isbn });
+        
+        modelBuilder.Entity<AuthorBook>()
+            .HasOne(ba => ba.Book)
+            .WithMany(b => b.AuthorBooks)
+            .HasForeignKey(ba => ba.Isbn);
+        
+        modelBuilder.Entity<AuthorBook>()
+            .HasOne(ba => ba.Author)
+            .WithMany(a => a.AuthorBooks)
+            .HasForeignKey(ba => ba.AuthorId);
 
-        //modelBuilder.Entity<AuthorBook>(entity =>
-        //{
-        //    entity
-        //        .HasOne(ba => ba.Book)
-        //        .WithMany(b => b.BookAuthors)
-        //        .HasForeignKey(ba => ba.BookIsbn);
-        //});
-        //modelBuilder.Entity<AuthorBook>(entity =>
-        //{
-        //    entity
-        //        .HasOne(ba => ba.Author)
-        //        .WithMany(a => a.BookAuthors)
-        //        .HasForeignKey(ba => ba.AuthorId);
-        //});
+
 
         OnModelCreatingPartial(modelBuilder);
     }
