@@ -104,10 +104,29 @@ public class AuthorsVM : VMBase
     }
 
 
-    private void AddAuthor(object obj)
+    private void DeleteAuthor(object obj)
     {
-        AuthorDetailsVisibility = Visibility.Visible;
-        MainWindowVM.SideMenuIsEnabled = false;
+        using var db = new TheBookNookDbContext();
+        var authorToDelete = db.Authors.SingleOrDefault(x => x.Id == CurrentAuthor.Id);
+
+        var confirm = MessageBox.Show($"Do you want to delete {AuthorFirstName} {AuthorLastName}?", "Confirm deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if (confirm == MessageBoxResult.Yes)
+        {
+            if (authorToDelete != null)
+            {
+                db.Authors.Remove(authorToDelete);
+                db.SaveChanges();
+            }
+            else
+    {
+                MessageBox.Show("Could not find object in the DataBase.", "Could not delete");
+            }
+        }
+
+        LoadAuthorsAsync();
+        ResetAuthorProperties();
+        CloseAuthorDetails(obj);
     }
 
 
