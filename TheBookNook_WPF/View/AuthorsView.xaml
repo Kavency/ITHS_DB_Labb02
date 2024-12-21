@@ -8,7 +8,7 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    
+
     <StackPanel Orientation="Vertical">
         <DockPanel Margin="10 0 10 5">
             <TextBlock Text="Authors"
@@ -20,7 +20,8 @@
                        DockPanel.Dock="left" />
             <Button Style="{StaticResource addEditRecordButton}"
                     DockPanel.Dock="Right"
-                    Command="{Binding AddAuthorButtonCMD}">
+                    Command="{Binding OpenAuthorDetailsButtonCMD}"
+                    CommandParameter="AddBTN">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Plus"
                                   Width="20"
@@ -42,7 +43,8 @@
                     Width="45"
                     Style="{StaticResource addEditRecordButton}"
                     Margin="0 0 5 -20"
-                    Command="{Binding EditAuthorButtonCMD}"
+                    Command="{Binding OpenAuthorDetailsButtonCMD}"
+                    CommandParameter="EditBTN"
                     Visibility="{Binding EditButtonVisibility}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Edit" />
@@ -53,7 +55,7 @@
         <Separator Height="1"
                    Background="#F2AF0D"
                    Margin="0, -1, 0, 10" />
-        
+
         <DataGrid IsReadOnly="True"
                   AutoGenerateColumns="False"
                   AlternatingRowBackground="AliceBlue"

@@ -29,8 +29,7 @@ public class AuthorsVM : VMBase
     public string AuthorFirstName { get => _authorFirstName; set { _authorFirstName = value; OnPropertyChanged(); } }
     public string AuthorLastName { get => _authorLastName; set { _authorLastName = value; OnPropertyChanged(); } }
     public DateOnly AuthorBirthDate { get => _authorBirthDate; set { _authorBirthDate = value; OnPropertyChanged(); } }
-    public RelayCommand AddAuthorButtonCMD { get; }
-    public RelayCommand EditAuthorButtonCMD { get; }
+    public RelayCommand OpenAuthorDetailsButtonCMD { get; }
     public RelayCommand DeleteAuthorButtonCMD { get; }
     public RelayCommand SaveAuthorButtonCMD { get; }
     public RelayCommand CloseAuthorDetailsButtonCMD { get; }
@@ -43,32 +42,9 @@ public class AuthorsVM : VMBase
             OnPropertyChanged();
 
             if(_currentAuthor != null)
-            {
-                AuthorId = _currentAuthor.Id;
-                AuthorFirstName = _currentAuthor.FirstName;
-                AuthorLastName = _currentAuthor.LastName;
-                AuthorBirthDate = _currentAuthor.BirthDate;
                 EditButtonsVisibility(true);
-            }
             else
-            {
                 EditButtonsVisibility(false);
-            }
-        }
-    }
-
-
-    private void EditButtonsVisibility(bool visible)
-    {
-        if (visible)
-        {
-            EditButtonVisibility = Visibility.Visible;
-            DeleteButtonVisibility = Visibility.Visible;
-        }
-        else
-        {
-            EditButtonVisibility = Visibility.Hidden;
-            DeleteButtonVisibility = Visibility.Hidden;
         }
     }
     #endregion
@@ -79,8 +55,7 @@ public class AuthorsVM : VMBase
         _mainWindowVM = mainWindowVM;
         _authors = new ObservableCollection<Author>();
 
-        AddAuthorButtonCMD = new RelayCommand(AddAuthor);
-        EditAuthorButtonCMD = new RelayCommand(EditAuthor);
+        OpenAuthorDetailsButtonCMD = new RelayCommand(OpenAuthorDetails);
         DeleteAuthorButtonCMD = new RelayCommand(DeleteAuthor);
         SaveAuthorButtonCMD = new RelayCommand(SaveAuhorToDB);
         CloseAuthorDetailsButtonCMD = new RelayCommand(CloseAuthorDetails);
@@ -108,22 +83,28 @@ public class AuthorsVM : VMBase
     }
 
 
-    private void AddAuthor(object obj)
+    private void OpenAuthorDetails(object obj)
     {
         AuthorPaneVisibility(true);
-        AuthorId = 0;
-        AuthorFirstName = string.Empty;
-        AuthorLastName = string.Empty;
-        AuthorBirthDate = new DateOnly();
+        
+        if (_currentAuthor != null && obj as string == "EditBTN")
+        {
+            AuthorId = _currentAuthor.Id;
+            AuthorFirstName = _currentAuthor.FirstName;
+            AuthorLastName = _currentAuthor.LastName;
+            AuthorBirthDate = _currentAuthor.BirthDate;
+            EditButtonsVisibility(true);
+        }
+        else
+        {
+            AuthorId = 0;
+            AuthorFirstName = string.Empty;
+            AuthorLastName = string.Empty;
+            AuthorBirthDate = new DateOnly();
+        }
     }
 
-
-    private void EditAuthor(object obj)
-    {
-        AuthorPaneVisibility(true);
-    }
-
-
+    
     private void DeleteAuthor(object obj)
     {
         using var db = new TheBookNookDbContext();
@@ -140,12 +121,11 @@ public class AuthorsVM : VMBase
             }
             else
             {
-                MessageBox.Show("Could not find object in the DataBase.", "Could not delete");
+                MessageBox.Show("Could not find object in the DataBase.", "Could not delete", MessageBoxButton.OK);
             }
         }
 
         LoadAuthorsAsync();
-        ResetAuthorProperties();
         CloseAuthorDetails(obj);
     }
 
@@ -178,7 +158,6 @@ public class AuthorsVM : VMBase
 
         db.SaveChanges();
         LoadAuthorsAsync();
-        ResetAuthorProperties();
         CloseAuthorDetails(obj);
     }
 
@@ -194,6 +173,21 @@ public class AuthorsVM : VMBase
         {
             AuthorDetailsVisibility = Visibility.Hidden;
             MainWindowVM.SideMenuIsEnabled = true;
+        }
+    }
+
+
+    private void EditButtonsVisibility(bool visible)
+    {
+        if (visible)
+        {
+            EditButtonVisibility = Visibility.Visible;
+            DeleteButtonVisibility = Visibility.Visible;
+        }
+        else
+        {
+            EditButtonVisibility = Visibility.Hidden;
+            DeleteButtonVisibility = Visibility.Hidden;
         }
     }
 
