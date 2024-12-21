@@ -22,7 +22,10 @@
                     DockPanel.Dock="Right"
                     Command="{Binding AddAuthorButtonCMD}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Author Details" />
+                    <fa:IconBlock Icon="Plus"
+                                  Width="20"
+                                  Height="12" />
+                    <TextBlock Text="Add Author" />
                 </StackPanel>
             </Button>
             <Button Style="{StaticResource addEditRecordButton}"
@@ -39,7 +42,7 @@
                     Width="45"
                     Style="{StaticResource addEditRecordButton}"
                     Margin="0 0 5 -20"
-                    Command="{Binding AddAuthorButtonCMD}"
+                    Command="{Binding EditAuthorButtonCMD}"
                     Visibility="{Binding EditButtonVisibility}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Edit" />
