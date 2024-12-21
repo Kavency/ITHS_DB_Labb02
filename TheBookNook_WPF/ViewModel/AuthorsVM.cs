@@ -171,8 +171,9 @@ public class AuthorsVM : VMBase
             author.LastName = AuthorLastName;
             author.BirthDate = AuthorBirthDate;
             
-            Authors.Add(author);
+            db.Authors.Add(author);
         }
+
         db.SaveChanges();
         LoadAuthorsAsync();
         ResetAuthorProperties();
