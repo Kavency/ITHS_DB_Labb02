@@ -41,7 +41,7 @@
                     <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="ADD BOOK"
+                <TextBlock Text="{Binding BooksVM.BookDetailsHeader}"
                            Grid.ColumnSpan="2"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Bottom"
@@ -108,7 +108,7 @@
                          Grid.Row="1"
                          Margin="0 3"
                          VerticalAlignment="Center"
-                         Text="{Binding BooksVM.IsbnString}" />
+                         Text="{Binding BooksVM.Isbn}" />
 
                 <TextBox x:Name="TitleTextBox"
                          Grid.Column="1"
@@ -116,7 +116,7 @@
                          VerticalAlignment="Center"
                          Margin="0 3">
                     <TextBox.Text>
-                        <Binding Path="BooksVM.TitleString"
+                        <Binding Path="BooksVM.Title"
                                  ValidatesOnDataErrors="True"
                                  Mode="TwoWay"
                                  UpdateSourceTrigger="PropertyChanged">
@@ -134,7 +134,8 @@
                           DisplayMemberPath="FullName"
                           VerticalAlignment="Center"
                           ItemsSource="{Binding AuthorsVM.Authors}"
-                          Text="{Binding BooksVM.AuthorNameString}" />
+                          SelectedItem="{Binding BooksVM.Author}"
+                          Text="{Binding BooksVM.AuthorName}" />
 
                 <DatePicker x:Name="RealeaseDateTextBox"
                             Grid.Column="1"
@@ -151,7 +152,8 @@
                           DisplayMemberPath="Language1"
                           VerticalAlignment="Center"
                           ItemsSource="{Binding BooksVM.Languages}"
-                          SelectedItem="{Binding BooksVM.CurrentBook.Language}" />
+                          SelectedItem="{Binding BooksVM.CurrentBook.Language}"
+                          Text="{Binding BooksVM.Language}" />
 
                 <ComboBox x:Name="Format"
                           Grid.Column="1"
@@ -161,7 +163,8 @@
                           DisplayMemberPath="Format1"
                           VerticalAlignment="Center"
                           ItemsSource="{Binding BooksVM.Formats}"
-                          SelectedItem="{Binding BooksVM.CurrentBook.Format}" />
+                          SelectedItem="{Binding BooksVM.CurrentBook.Format}"
+                          Text="{Binding BooksVM.Format}" />
 
                 <ComboBox x:Name="GenreComBox"
                           Grid.Column="1"
@@ -171,14 +174,15 @@
                           DisplayMemberPath="Genre1"
                           VerticalAlignment="Center"
                           ItemsSource="{Binding BooksVM.Genres}"
-                          SelectedItem="{Binding BooksVM.CurrentBook.Genre}" />
+                          SelectedItem="{Binding BooksVM.CurrentBook.Genre}"
+                          Text="{Binding BooksVM.Genre}" />
 
                 <TextBox x:Name="PriceTextBox"
                          Margin="0 3"
                          Grid.Column="1"
                          Grid.Row="8"
                          VerticalAlignment="Center"
-                         Text="{Binding BooksVM.PriceString}" />
+                         Text="{Binding BooksVM.Price, StringFormat={}{0:F2}}" />
 
                 <Button Content="Save"
                         Grid.Column="0"

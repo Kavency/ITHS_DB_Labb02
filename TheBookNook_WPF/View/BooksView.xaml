@@ -22,8 +22,8 @@
                        DockPanel.Dock="left" />
             <Button DockPanel.Dock="Right"
                     Style="{StaticResource addEditRecordButton}"
-                    
-                    Command="{Binding AddBookButtonCMD}">
+                    Command="{Binding OpenBookDetailsCMD}"
+                    CommandParameter="AddBTN">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Plus"
                                   Width="20"
@@ -46,8 +46,8 @@
                     Width="45"
                     Style="{StaticResource addEditRecordButton}"
                     Margin="0 0 5 -20"
-                    
-                    Command="{Binding EditBookButtonCMD}"
+                    Command="{Binding OpenBookDetailsCMD}"
+                    CommandParameter="EditBTN"
                     Visibility="{Binding EditButtonVisibility}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Edit"/>
@@ -76,6 +76,12 @@
                                     Binding="{Binding ReleaseDate, StringFormat=yyyy-MM-dd}" />
                 <DataGridTextColumn Header="Price"
                                     Binding="{Binding Price}" />
+                <DataGridTextColumn Header="Genre"
+                                    Binding="{Binding Genre.Genre1}" />
+                <DataGridTextColumn Header="Format"
+                                    Binding="{Binding Format.Format1}"/>
+                <DataGridTextColumn Header="Languag"
+                                    Binding="{Binding Language.Language1}" />
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>
