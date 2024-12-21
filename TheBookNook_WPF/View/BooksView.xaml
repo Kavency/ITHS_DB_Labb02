@@ -71,6 +71,8 @@
                                     Binding="{Binding Isbn}" />
                 <DataGridTextColumn Header="Title"
                                     Binding="{Binding Title}" />
+                <DataGridTextColumn Header="Author"
+                                    Binding="{Binding AuthorNames}" />
                 <DataGridTextColumn Header="Release date"
                                     Binding="{Binding ReleaseDate, StringFormat=yyyy-MM-dd}" />
                 <DataGridTextColumn Header="Price"
