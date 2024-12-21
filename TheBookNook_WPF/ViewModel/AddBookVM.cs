@@ -119,16 +119,6 @@ namespace TheBookNook_WPF.ViewModel
             Formats = new ObservableCollection<Format>(db.Formats.ToList());
             Languages = new ObservableCollection<Language>(db.Languages.ToList());
             db.DisposeAsync();
-            AuthorFullName();
-        }
-
-
-        private void AuthorFullName()
-        {
-            foreach(var author in Authors)
-            {
-                author.FullName = author.FirstName + " " + author.LastName;
-            }
         }
     }
 }
