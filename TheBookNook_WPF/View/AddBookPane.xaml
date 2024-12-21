@@ -38,7 +38,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="60" />
+                    <RowDefinition Height="80" />
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="{Binding BooksVM.BookDetailsHeader}"
@@ -108,24 +108,15 @@
                          Grid.Row="1"
                          Margin="0 3"
                          VerticalAlignment="Center"
+                         IsEnabled="{Binding BooksVM.IsbnFieldEnabled}"
                          Text="{Binding BooksVM.Isbn}" />
 
                 <TextBox x:Name="TitleTextBox"
                          Grid.Column="1"
                          Grid.Row="2"
                          VerticalAlignment="Center"
-                         Margin="0 3">
-                    <TextBox.Text>
-                        <Binding Path="BooksVM.Title"
-                                 ValidatesOnDataErrors="True"
-                                 Mode="TwoWay"
-                                 UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                         Margin="0 3"
+                         Text="{Binding BooksVM.CurrentBook.Title}"/>
 
                 <ComboBox x:Name="AuthorComboBox"
                           Grid.Column="1"
@@ -185,6 +176,7 @@
                          Text="{Binding BooksVM.Price, StringFormat={}{0:F2}}" />
 
                 <Button Content="Save"
+                        Style="{StaticResource addEditRecordButton}"
                         Grid.Column="0"
                         Grid.Row="9"
                         Margin="5 5"
@@ -192,6 +184,7 @@
                         Command="{Binding BooksVM.SaveNewBookCMD}" />
 
                 <Button Content="Cancel"
+                        Style="{StaticResource addEditRecordButton}"
                         Grid.Column="1"
                         Grid.Row="9"
                         Margin="5 5"
