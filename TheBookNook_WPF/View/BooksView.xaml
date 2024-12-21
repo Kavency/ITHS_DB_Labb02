@@ -27,7 +27,7 @@
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Plus"
                                   Width="20"
-                                  Height="12"
+                                  Height="12" />
                                   Margin="0, 0, 8, 0" />
                     <TextBlock Text="Add Book" />
                 </StackPanel>
