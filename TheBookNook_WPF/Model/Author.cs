@@ -13,6 +13,8 @@ public partial class Author
     public DateOnly BirthDate { get; set; }
 
     public virtual ICollection<Book> BookIsbns { get; set; } = new List<Book>();
+
+    public virtual ICollection<AuthorBook> AuthorBooks { get; set; }
     
     [NotMapped]
     public string FullName => $"{FirstName} {LastName}";

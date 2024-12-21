@@ -28,6 +28,8 @@ public partial class Book
 
     public virtual ICollection<Author> Authors { get; set; } = new List<Author>();
 
+    public virtual ICollection<AuthorBook> AuthorBooks { get; set; }
+
     [NotMapped]
     public string AuthorNames => Authors != null ? string.Join(", ", Authors.Select(a => a.FullName)) : string.Empty;
 }
