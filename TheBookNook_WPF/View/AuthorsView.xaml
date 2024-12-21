@@ -19,13 +19,33 @@
                        Foreground="#F4F4F9"
                        DockPanel.Dock="left" />
             <Button Style="{StaticResource addEditRecordButton}"
-                    DockPanel.Dock="Right">
+                    DockPanel.Dock="Right"
+                    Command="{Binding AddAuthorButtonCMD}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Plus"
-                                  Width="11"
-                                  Height="11"
-                                  Margin="0, 0, 8, 0" />
-                    <TextBlock Text="Add record" />
+                                  Width="20"
+                                  Height="12" />
+                    <TextBlock Text="Add Author" />
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource addEditRecordButton}"
+                    DockPanel.Dock="Right"
+                    Margin="0 20 10 0"
+                    Width="45"
+                    Command="{Binding DeleteAuthorButtonCMD}"
+                    Visibility="{Binding DeleteButtonVisibility}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconBlock Icon="TrashCan" />
+                </StackPanel>
+            </Button>
+            <Button DockPanel.Dock="Right"
+                    Width="45"
+                    Style="{StaticResource addEditRecordButton}"
+                    Margin="0 0 5 -20"
+                    Command="{Binding EditAuthorButtonCMD}"
+                    Visibility="{Binding EditButtonVisibility}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconBlock Icon="Edit" />
                 </StackPanel>
             </Button>
         </DockPanel>
@@ -33,12 +53,14 @@
         <Separator Height="1"
                    Background="#F2AF0D"
                    Margin="0, -1, 0, 10" />
-
-        <DataGrid x:Name="BooksDG"
-                  IsReadOnly="True"
+        
+        <DataGrid IsReadOnly="True"
                   AutoGenerateColumns="False"
+                  AlternatingRowBackground="AliceBlue"
                   ColumnWidth="auto"
-                  ItemsSource="{Binding Authors}">
+                  VerticalScrollBarVisibility="Visible"
+                  ItemsSource="{Binding Authors}"
+                  SelectedItem="{Binding CurrentAuthor}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id"
                                     Binding="{Binding Id}" />
@@ -47,7 +69,7 @@
                 <DataGridTextColumn Header="Last Name"
                                     Binding="{Binding LastName}" />
                 <DataGridTextColumn Header="Birthdate"
-                                    Binding="{Binding BirthDate}" />
+                                    Binding="{Binding BirthDate, StringFormat=yyyy-MM-dd}" />
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>

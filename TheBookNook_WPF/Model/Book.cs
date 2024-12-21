@@ -1,4 +1,6 @@
-﻿namespace TheBookNook_WPF.Model;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TheBookNook_WPF.Model;
 
 public partial class Book
 {
@@ -25,4 +27,7 @@ public partial class Book
     public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
 
     public virtual ICollection<Author> Authors { get; set; } = new List<Author>();
+
+    [NotMapped]
+    public string AuthorNames => Authors != null ? string.Join(", ", Authors.Select(a => a.FullName)) : string.Empty;
 }

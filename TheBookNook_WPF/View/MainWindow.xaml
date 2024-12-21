@@ -17,17 +17,36 @@
         AllowsTransparency="True">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        <Storyboard x:Key="AddPaneSwipe">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetName="AddBookPane"
+                                              Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                <EasingThicknessKeyFrame KeyTime="00:00:00"
+                                         Value="0,0,-1180,0" />
+                <EasingThicknessKeyFrame KeyTime="00:00:00.5000000"
+                                         Value="0,0,-570,0" />
+            </ThicknessAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="dimView"
+                                          Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)">
+                <EasingColorKeyFrame KeyTime="00:00:00"
+                                     Value="Black" />
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
+
+    <!--Background="#2F4550"-->
 
     <Window.DataContext>
         <vm:MainWindowVM />
     </Window.DataContext>
 
-    <Border Background="#2F4550"
-            BorderBrush="#F2AF0D"
+    <Border BorderBrush="#F2AF0D"
             BorderThickness="2"
             CornerRadius="20"
             MouseDown="MoveMainWindow_MouseDown">
+        <Border.Background>
+            <ImageBrush ImageSource="/Resources/LoginBackGround.jpeg"
+                        Stretch="UniformToFill" />
+        </Border.Background>
 
         <Grid>
             <Grid.RowDefinitions>
@@ -41,7 +60,8 @@
 
             <!-- Sidebar -->
             <Grid Grid.Column="0"
-                  Grid.RowSpan="2">
+                  Grid.RowSpan="2"
+                  IsEnabled="{Binding SideMenuIsEnabled}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
                     <RowDefinition Height="*" />
@@ -57,17 +77,11 @@
                         <Border Width="80"
                                 Height="80"
                                 Padding="3"
-                                Background="#F2AF0D"
-                                CornerRadius="40"
                                 DockPanel.Dock="Top"
                                 HorizontalAlignment="Center"
                                 Margin="0 -40 0 0">
-                            <Ellipse>
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Resources/Logo.png"
-                                                Stretch="Fill" />
-                                </Ellipse.Fill>
-                            </Ellipse>
+                            <Image Source="/Resources/Logo.png"
+                                   Stretch="Fill" />
                         </Border>
 
                         <TextBlock Text="John"
@@ -122,16 +136,7 @@
                                     <TextBlock Text="Authors" />
                                 </StackPanel>
                             </RadioButton>
-                            <RadioButton Style="{StaticResource sidebarRadioButtonTheme}"
-                                         Command="{Binding ShowCustomersViewCMD}">
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="10 0 0 0">
-                                    <fa:IconBlock Icon="PeopleGroup"
-                                                  Foreground="#F4F4F9"
-                                                  Margin="0, 0, 15, 0" />
-                                    <TextBlock Text="Customers" />
-                                </StackPanel>
-                            </RadioButton>
+
                             <RadioButton Style="{StaticResource sidebarRadioButtonTheme}"
                                          Command="{Binding ShowStoresViewCMD}">
                                 <StackPanel Orientation="Horizontal"
@@ -147,23 +152,13 @@
                         <Button Style="{StaticResource SidebarExitButton}"
                                 DockPanel.Dock="Bottom"
                                 VerticalAlignment="Bottom"
-                                Margin="30, 0, 0, 10">
+                                Margin="30, 0, 0, 10"
+                                Click="ExitButton_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconBlock Icon="ArrowRightFromBracket"
                                               Foreground="#F4F4F9"
                                               Margin="0, 0, 15, 0" />
                                 <TextBlock Text="Exit" />
-                            </StackPanel>
-                        </Button>
-                        <Button Style="{StaticResource SidebarExitButton}"
-                                DockPanel.Dock="Bottom"
-                                VerticalAlignment="Bottom"
-                                Margin="30, 0, 0, 0">
-                            <StackPanel Orientation="Horizontal">
-                                <fa:IconBlock Icon="UserXmark"
-                                              Foreground="#F4F4F9"
-                                              Margin="0, 0, 15, 0" />
-                                <TextBlock Text="Sign out" />
                             </StackPanel>
                         </Button>
 
@@ -173,7 +168,7 @@
 
             <!-- Main area -->
             <Grid Grid.Column="1"
-                  Margin="30, 20 ,20, 20"
+                  Margin="30,20,20,20"
                   Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -181,29 +176,10 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!-- Searchbox -->
-                <Grid Width="300"
-                      HorizontalAlignment="Left">
-                    <TextBlock Margin="20, 0"
-                               VerticalAlignment="Center"
-                               Foreground="#2F4550"
-                               IsHitTestVisible="False"
-                               Panel.ZIndex="1"
-                               Text="Search"
-                               Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVisibility}}" />
-                    <TextBox x:Name="txtSearch"
-                             Style="{StaticResource textboxSearch}" />
-                    <fa:IconBlock Icon="MagnifyingGlass"
-                                  Foreground="#2F4550"
-                                  Margin="0, 0, 15, 0"
-                                  HorizontalAlignment="Right" />
-
-                </Grid>
-
                 <!-- Window buttons -->
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right"
-                            Margin="0 -50 -25 0">
+                            Margin="0 0 -25 0">
 
                     <Button Margin="0, 0, 10, 0"
                             FontSize="20"
@@ -212,13 +188,7 @@
                             Click="MinimizeWindow_Click">
                         <fa:IconBlock Icon="WindowMinimize" />
                     </Button>
-                    <Button Margin="0, 0, 10, 0"
-                            FontSize="20"
-                            HorizontalAlignment="Right"
-                            Style="{StaticResource windowButtons}"
-                            Click="MaximizeWindow_Click">
-                        <fa:IconBlock Icon="WindowMaximize" />
-                    </Button>
+
                     <Button Margin="0, 0, 20, 0"
                             FontSize="20"
                             HorizontalAlignment="Right"
@@ -228,12 +198,26 @@
                     </Button>
                 </StackPanel>
 
+                <!-- Main area views -->
                 <ContentControl Grid.Column="1"
                                 Grid.Row="2"
                                 Content="{Binding CurrentView, Mode=TwoWay}" />
 
+                <views:AddBookPane Grid.Column="1"
+                                   Grid.Row="2"
+                                   Visibility="{Binding BooksVM.AddBookVisibility}" />
+
+                <views:EditBookPane Grid.Column="1"
+                                    Grid.Row="2"
+                                    Visibility="{Binding BooksVM.EditBookVisibility}" />
+
+                <views:AddAuthorPane Grid.Column="1"
+                                     Grid.Row="2"
+                                     Visibility="{Binding AuthorsVM.AuthorDetailsVisibility}" />
+
             </Grid>
         </Grid>
+
     </Border>
 
 </Window>

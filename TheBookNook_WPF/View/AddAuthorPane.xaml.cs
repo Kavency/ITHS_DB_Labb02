@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TheBookNook_WPF.View
 {
     /// <summary>
-    /// Interaction logic for CustomersView.xaml
+    /// Interaction logic for AddAuthorPane.xaml
     /// </summary>
-    public partial class CustomersView : UserControl
+    public partial class AddAuthorPane : UserControl
     {
-        public CustomersView()
+        public AddAuthorPane()
         {
             InitializeComponent();
         }
