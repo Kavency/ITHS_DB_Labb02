@@ -34,25 +34,30 @@
                    Background="#F2AF0D"
                    Margin="0, -1, 0, 10" />
 
-        <DataGrid x:Name="BooksDG"
-                  IsReadOnly="True"
-                  AutoGenerateColumns="False"
-                  ColumnWidth="auto"
-                  ItemsSource="{Binding Stores}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id"
-                                    Binding="{Binding Id}" />
-                <DataGridTextColumn Header="Name"
-                                    Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Street address"
-                                    Binding="{Binding StreetAddress}" />
-                <DataGridTextColumn Header="Postal Code"
-                                    Binding="{Binding PostalCode}" />
-                <DataGridTextColumn Header="City"
-                                    Binding="{Binding City}" />
-                <DataGridTextColumn Header="Country"
-                                    Binding="{Binding CountryId}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <StackPanel Orientation="Vertical">
+            <ComboBox Margin="0 10"
+                      DisplayMemberPath="Name"
+                      ItemsSource="{Binding Stores}"
+                      SelectedItem="{Binding SelectedStore}"/>
+            <DataGrid x:Name="BooksDG"
+                      IsReadOnly="True"
+                      AutoGenerateColumns="False"
+                      ColumnWidth="auto"
+                      AlternatingRowBackground="AliceBlue"
+                      ItemsSource="{Binding SelectedStoreStock}"
+                      >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ISBN"
+                                        Binding="{Binding Isbn}" />
+                    <DataGridTextColumn Header="Title "
+                                        Binding="{Binding IsbnNavigation.Title}" />
+                    <DataGridTextColumn Header="Authors"
+                                        Binding="{Binding IsbnNavigation.Authors.FirstName}" />
+                    <DataGridTextColumn Header="Amount"
+                                        Binding="{Binding Amount}" />
+                    <DataGridTextColumn Header="Action" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </StackPanel>
 </UserControl>
