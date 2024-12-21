@@ -30,6 +30,7 @@ public class AuthorsVM : VMBase
     public string AuthorLastName { get => _authorLastName; set { _authorLastName = value; OnPropertyChanged(); } }
     public DateOnly AuthorBirthDate { get => _authorBirthDate; set { _authorBirthDate = value; OnPropertyChanged(); } }
     public RelayCommand AddAuthorButtonCMD { get; }
+    public RelayCommand EditAuthorButtonCMD { get; }
     public RelayCommand DeleteAuthorButtonCMD { get; }
     public RelayCommand SaveAuthorButtonCMD { get; }
     public RelayCommand CloseAuthorDetailsButtonCMD { get; }
@@ -80,6 +81,7 @@ public class AuthorsVM : VMBase
         _authors = new ObservableCollection<Author>();
 
         AddAuthorButtonCMD = new RelayCommand(AddAuthor);
+        EditAuthorButtonCMD = new RelayCommand(EditAuthor);
         DeleteAuthorButtonCMD = new RelayCommand(DeleteAuthor);
         SaveAuthorButtonCMD = new RelayCommand(SaveAuhorToDB);
         CloseAuthorDetailsButtonCMD = new RelayCommand(CloseAuthorDetails);
