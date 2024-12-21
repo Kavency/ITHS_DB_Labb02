@@ -47,7 +47,20 @@ public class AuthorsVM : VMBase
                 AuthorFirstName = _currentAuthor.FirstName;
                 AuthorLastName = _currentAuthor.LastName;
                 AuthorBirthDate = _currentAuthor.BirthDate;
+                EditButtonsVisibility(true);
+            }
+            else
+            {
+                EditButtonsVisibility(false);
+            }
+        }
+    }
 
+
+    private void EditButtonsVisibility(bool visible)
+    {
+        if (visible)
+        {
                 EditButtonVisibility = Visibility.Visible;
                 DeleteButtonVisibility = Visibility.Visible;
             }
@@ -99,8 +112,13 @@ public class AuthorsVM : VMBase
     {
         foreach (var author in Authors)
         {
-            author.FullName = author.FirstName + " " + author.LastName;
+        AuthorPaneVisibility(true);
         }
+
+
+    private void EditAuthor(object obj)
+    {
+        AuthorPaneVisibility(true);
     }
 
 
@@ -162,18 +180,18 @@ public class AuthorsVM : VMBase
     }
 
 
-    private void DeleteAuthor(object obj)
+    private void AuthorPaneVisibility(bool visible)
     {
-        using var db = new TheBookNookDbContext();
-        var authorToDelete = db.Authors.SingleOrDefault(x => x.Id == CurrentAuthor.Id);
-
-        if (authorToDelete != null)
-            db.Authors.Remove(authorToDelete);
-        
-        db.SaveChanges();
-        LoadAuthorsAsync();
-        ResetAuthorProperties();
-        CloseAuthorDetails(obj);
+        if (visible)
+        {
+            AuthorDetailsVisibility = Visibility.Visible;
+            MainWindowVM.SideMenuIsEnabled = false;
+        }
+        else
+    {
+            AuthorDetailsVisibility = Visibility.Hidden;
+            MainWindowVM.SideMenuIsEnabled = true;
+        }
     }
 
 
@@ -189,8 +207,7 @@ public class AuthorsVM : VMBase
 
     private void CloseAuthorDetails(object obj)
     {
-        AuthorDetailsVisibility = Visibility.Hidden;
-        MainWindowVM.SideMenuIsEnabled = true;
+        AuthorPaneVisibility(false);
         ResetAuthorProperties();
     }
     #endregion
