@@ -62,14 +62,13 @@ public class AuthorsVM : VMBase
     {
         if (visible)
         {
-                EditButtonVisibility = Visibility.Visible;
-                DeleteButtonVisibility = Visibility.Visible;
-            }
-            else
-            {
-                EditButtonVisibility = Visibility.Hidden;
-                DeleteButtonVisibility = Visibility.Hidden;
-            }
+            EditButtonVisibility = Visibility.Visible;
+            DeleteButtonVisibility = Visibility.Visible;
+        }
+        else
+        {
+            EditButtonVisibility = Visibility.Hidden;
+            DeleteButtonVisibility = Visibility.Hidden;
         }
     }
     #endregion
@@ -88,7 +87,7 @@ public class AuthorsVM : VMBase
 
         LoadAuthorsAsync();
     }
-
+    
 
     #region Methods
     private async void LoadAuthorsAsync()
@@ -97,7 +96,6 @@ public class AuthorsVM : VMBase
 
         Authors = data;
         OnPropertyChanged(nameof(Authors));
-        AuthorFullName();
     }
 
 
@@ -110,12 +108,14 @@ public class AuthorsVM : VMBase
     }
 
 
-    private void AuthorFullName()
+    private void AddAuthor(object obj)
     {
-        foreach (var author in Authors)
-        {
         AuthorPaneVisibility(true);
-        }
+        AuthorId = 0;
+        AuthorFirstName = string.Empty;
+        AuthorLastName = string.Empty;
+        AuthorBirthDate = new DateOnly();
+    }
 
 
     private void EditAuthor(object obj)
@@ -139,7 +139,7 @@ public class AuthorsVM : VMBase
                 db.SaveChanges();
             }
             else
-    {
+            {
                 MessageBox.Show("Could not find object in the DataBase.", "Could not delete");
             }
         }
@@ -191,7 +191,7 @@ public class AuthorsVM : VMBase
             MainWindowVM.SideMenuIsEnabled = false;
         }
         else
-    {
+        {
             AuthorDetailsVisibility = Visibility.Hidden;
             MainWindowVM.SideMenuIsEnabled = true;
         }
