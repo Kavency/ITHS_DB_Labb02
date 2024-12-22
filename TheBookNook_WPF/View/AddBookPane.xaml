@@ -116,7 +116,7 @@
                          Grid.Row="2"
                          VerticalAlignment="Center"
                          Margin="0 3"
-                         Text="{Binding BooksVM.CurrentBook.Title}"/>
+                         Text="{Binding BooksVM.Title}"/>
 
                 <ComboBox x:Name="AuthorComboBox"
                           Grid.Column="1"
@@ -133,7 +133,7 @@
                             Grid.Row="4"
                             Margin="0 3"
                             VerticalContentAlignment="Center"
-                            Text="{Binding BooksVM.CurrentBook.ReleaseDate, Mode=TwoWay}" />
+                            Text="{Binding BooksVM.ReleaseDate, Mode=TwoWay}" />
 
                 <ComboBox x:Name="LanguageComboBox"
                           Grid.Column="1"
@@ -143,8 +143,8 @@
                           DisplayMemberPath="Language1"
                           VerticalAlignment="Center"
                           ItemsSource="{Binding BooksVM.Languages}"
-                          SelectedItem="{Binding BooksVM.CurrentBook.Language}"
-                          Text="{Binding BooksVM.Language}" />
+                          SelectedItem="{Binding BooksVM.Language}"
+                          Text="{Binding BooksVM.Language.Language1}" />
 
                 <ComboBox x:Name="Format"
                           Grid.Column="1"
@@ -154,8 +154,8 @@
                           DisplayMemberPath="Format1"
                           VerticalAlignment="Center"
                           ItemsSource="{Binding BooksVM.Formats}"
-                          SelectedItem="{Binding BooksVM.CurrentBook.Format}"
-                          Text="{Binding BooksVM.Format}" />
+                          SelectedItem="{Binding BooksVM.Format}"
+                          Text="{Binding BooksVM.Format.Format1}" />
 
                 <ComboBox x:Name="GenreComBox"
                           Grid.Column="1"
@@ -165,8 +165,8 @@
                           DisplayMemberPath="Genre1"
                           VerticalAlignment="Center"
                           ItemsSource="{Binding BooksVM.Genres}"
-                          SelectedItem="{Binding BooksVM.CurrentBook.Genre}"
-                          Text="{Binding BooksVM.Genre}" />
+                          SelectedItem="{Binding BooksVM.Genre}"
+                          Text="{Binding BooksVM.Genre.Genre1}" />
 
                 <TextBox x:Name="PriceTextBox"
                          Margin="0 3"
