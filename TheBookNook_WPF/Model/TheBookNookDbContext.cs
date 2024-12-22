@@ -60,7 +60,7 @@ public partial class TheBookNookDbContext : DbContext
             entity.HasMany(d => d.BookIsbns).WithMany(p => p.Authors)
                 .UsingEntity<AuthorBook>(
                     j => j.HasOne(pt => pt.Book).WithMany(t => t.AuthorBooks)
-                        .HasForeignKey(pt => pt.Isbn)
+                        .HasForeignKey(pt => pt.BookIsbn)
                         .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("FK_AuthorBook_Books"),
                     j => j.HasOne(pt => pt.Author).WithMany(p => p.AuthorBooks)
@@ -69,10 +69,10 @@ public partial class TheBookNookDbContext : DbContext
                         .HasConstraintName("FK_AuthorBook_Authors"),
                     j =>
                     {
-                        j.HasKey(t => new { t.AuthorId, t.Isbn });
+                        j.HasKey(t => new { t.AuthorId, t.BookIsbn });
                         j.ToTable("AuthorBook");
                         j.Property(pt => pt.AuthorId).HasColumnName("AuthorID");
-                        j.Property(pt => pt.Isbn).HasColumnName("BookISBN");
+                        j.Property(pt => pt.BookIsbn).HasColumnName("BookISBN");
                     });
         });
 
@@ -336,12 +336,12 @@ public partial class TheBookNookDbContext : DbContext
         });
 
         modelBuilder.Entity<AuthorBook>()
-            .HasKey(ba => new { ba.AuthorId, ba.Isbn });
+            .HasKey(ba => new { ba.AuthorId, ba.BookIsbn });
         
         modelBuilder.Entity<AuthorBook>()
             .HasOne(ba => ba.Book)
             .WithMany(b => b.AuthorBooks)
-            .HasForeignKey(ba => ba.Isbn);
+            .HasForeignKey(ba => ba.BookIsbn);
         
         modelBuilder.Entity<AuthorBook>()
             .HasOne(ba => ba.Author)
