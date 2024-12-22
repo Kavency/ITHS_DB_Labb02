@@ -205,11 +205,7 @@
 
                 <views:AddBookPane Grid.Column="1"
                                    Grid.Row="2"
-                                   Visibility="{Binding BooksVM.AddBookVisibility}" />
-
-                <views:EditBookPane Grid.Column="1"
-                                    Grid.Row="2"
-                                    Visibility="{Binding BooksVM.EditBookVisibility}" />
+                                   Visibility="{Binding BooksVM.BookDetailsVisibility}" />
 
                 <views:AddAuthorPane Grid.Column="1"
                                      Grid.Row="2"
