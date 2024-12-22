@@ -34,6 +34,8 @@ public partial class TheBookNookDbContext : DbContext
 
     public virtual DbSet<Store> Stores { get; set; }
 
+    public virtual DbSet<StoreBook> StoreBook { get; set; }
+
     public virtual DbSet<VwAuthorSummary> VwAuthorSummaries { get; set; }
 
     public virtual DbSet<VwStoreService> VwStoreServices { get; set; }
@@ -49,36 +51,6 @@ public partial class TheBookNookDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Genererad av EF Tools Scaffolding
-
-        //modelBuilder.Entity<Author>(entity =>
-        //{
-        //    entity.Property(e => e.Id).HasColumnName("ID");
-        //    entity.Property(e => e.FirstName).HasMaxLength(255);
-        //    entity.Property(e => e.LastName).HasMaxLength(255);
-
-        //    entity.HasMany(d => d.BookIsbns).WithMany(p => p.Authors)
-        //        .UsingEntity<Dictionary<string, object>>(
-        //            "AuthorBook",
-        //            r => r.HasOne<Book>().WithMany()
-        //                .HasForeignKey("BookIsbn")
-        //                .OnDelete(DeleteBehavior.Cascade)
-        //                .HasConstraintName("FK_AuthorBook_Books"),
-        //            l => l.HasOne<Author>().WithMany()
-        //                .HasForeignKey("AuthorId")
-        //                .OnDelete(DeleteBehavior.Cascade)
-        //                .HasConstraintName("FK_AuthorBook_Authors"),
-        //            j =>
-        //            {
-        //                j.HasKey("AuthorId", "BookIsbn");
-        //                j.ToTable("AuthorBook");
-        //                j.IndexerProperty<int>("AuthorId").HasColumnName("AuthorID");
-        //                j.IndexerProperty<long>("BookIsbn").HasColumnName("BookISBN");
-        //            });
-        //});
-
-
-        // Egen
         modelBuilder.Entity<Author>(entity =>
         {
             entity.Property(e => e.Id).HasColumnName("ID");
@@ -376,7 +348,18 @@ public partial class TheBookNookDbContext : DbContext
             .WithMany(a => a.AuthorBooks)
             .HasForeignKey(ba => ba.AuthorId);
 
+        modelBuilder.Entity<StoreBook>()
+            .HasKey(sb => new { sb.StoreId, sb.BookIsbn });
 
+        modelBuilder.Entity<StoreBook>()
+            .HasOne(s => s.Store)
+            .WithMany(sb => sb.StoreBooks)
+            .HasForeignKey(s => s.StoreId);
+
+        modelBuilder.Entity<StoreBook>()
+            .HasOne(b => b.Book)
+            .WithMany(sb => sb.StoreBooks)
+            .HasForeignKey(b => b.BookIsbn);
 
         OnModelCreatingPartial(modelBuilder);
     }
