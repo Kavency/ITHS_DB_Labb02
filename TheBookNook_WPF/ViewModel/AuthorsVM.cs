@@ -124,7 +124,7 @@ public class AuthorsVM : VMBase
                 // Get and remove all entries in AuthorBook table.
                 foreach (var item in books)
                 {
-                    var authorBooks = db.AuthorBook.Where(ab => ab.AuthorId == authorToDelete.Id && ab.Isbn == item.Isbn).ToList();
+                    var authorBooks = db.AuthorBook.Where(ab => ab.AuthorId == authorToDelete.Id && ab.BookIsbn == item.Isbn).ToList();
                     db.RemoveRange(authorBooks);
                 }
                 db.SaveChanges();
