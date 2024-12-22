@@ -23,4 +23,7 @@ public partial class Store
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 
     public virtual ICollection<Service> Services { get; set; } = new List<Service>();
+
+    public virtual ICollection<StoreBook> StoreBooks { get; set; }
+
 }

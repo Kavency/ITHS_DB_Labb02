@@ -30,6 +30,9 @@ public partial class Book
 
     public virtual ICollection<AuthorBook> AuthorBooks { get; set; }
 
+    public virtual ICollection<StoreBook> StoreBooks { get; set; }
+
+
     [NotMapped]
     public string AuthorNames => Authors != null ? string.Join(", ", Authors.Select(a => a.FullName)) : string.Empty;
 }
