@@ -1,6 +1,6 @@
 ﻿namespace TheBookNook_WPF.Model;
 
-internal class StoreBook
+public class StoreBook
 {
     public int StoreId { get; set; }
     public Store Store { get; set; }
