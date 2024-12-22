@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 using System.Windows;
 using TheBookNook_WPF.Model;
 
@@ -33,15 +34,15 @@ public class AuthorsVM : VMBase
     public RelayCommand DeleteAuthorButtonCMD { get; }
     public RelayCommand SaveAuthorButtonCMD { get; }
     public RelayCommand CloseAuthorDetailsButtonCMD { get; }
-    public Author? CurrentAuthor 
-    { 
-        get => _currentAuthor; 
-        set 
-        { 
+    public Author? CurrentAuthor
+    {
+        get => _currentAuthor;
+        set
+        {
             _currentAuthor = value;
             OnPropertyChanged();
 
-            if(_currentAuthor != null)
+            if (_currentAuthor != null)
                 EditButtonsVisibility(true);
             else
                 EditButtonsVisibility(false);
@@ -62,7 +63,7 @@ public class AuthorsVM : VMBase
 
         LoadAuthorsAsync();
     }
-    
+
 
     #region Methods
     private async void LoadAuthorsAsync()
@@ -86,7 +87,7 @@ public class AuthorsVM : VMBase
     private void OpenAuthorDetails(object obj)
     {
         AuthorPaneVisibility(true);
-        
+
         if (_currentAuthor != null && obj as string == "EditBTN")
         {
             AuthorId = _currentAuthor.Id;
@@ -97,25 +98,40 @@ public class AuthorsVM : VMBase
         }
         else
         {
-            AuthorId = 0;
-            AuthorFirstName = string.Empty;
-            AuthorLastName = string.Empty;
-            AuthorBirthDate = new DateOnly();
+            ResetAuthorProperties();
         }
     }
 
-    
+
     private void DeleteAuthor(object obj)
     {
         using var db = new TheBookNookDbContext();
         var authorToDelete = db.Authors.SingleOrDefault(x => x.Id == CurrentAuthor.Id);
 
-        var confirm = MessageBox.Show($"Do you want to delete {AuthorFirstName} {AuthorLastName}?", "Confirm deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var confirm = MessageBox.Show($"Do you want to delete {authorToDelete.FirstName} {authorToDelete.LastName}?", "Confirm deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
         if (confirm == MessageBoxResult.Yes)
         {
             if (authorToDelete != null)
             {
+                // Get all books related to author.
+                var books = db.Books
+                    .Include(b => b.AuthorBooks)
+                    .ThenInclude(ba => ba.Author)
+                    .Where(b => b.AuthorBooks.Any(ba => ba.AuthorId == authorToDelete.Id))
+                    .ToList();
+
+                // Get and remove all entries in AuthorBook table.
+                foreach (var item in books)
+                {
+                    var authorBooks = db.AuthorBook.Where(ab => ab.AuthorId == authorToDelete.Id && ab.Isbn == item.Isbn).ToList();
+                    db.RemoveRange(authorBooks);
+                }
+                db.SaveChanges();
+
+                db.RemoveRange(books);
+                db.SaveChanges();
+
                 db.Authors.Remove(authorToDelete);
                 db.SaveChanges();
             }
@@ -125,7 +141,8 @@ public class AuthorsVM : VMBase
             }
         }
 
-        LoadAuthorsAsync();
+        OnPropertyChanged(nameof(Authors));
+        OnPropertyChanged(nameof(MainWindowVM.BooksVM.Books));
         CloseAuthorDetails(obj);
     }
 
@@ -133,12 +150,12 @@ public class AuthorsVM : VMBase
     private void SaveAuhorToDB(object obj)
     {
         using var db = new TheBookNookDbContext();
-        
-        if(CurrentAuthor != null)
+
+        if (CurrentAuthor != null)
         {
             var authorToUpdate = db.Authors.SingleOrDefault(x => x.Id == AuthorId);
 
-            if(authorToUpdate != null)
+            if (authorToUpdate != null)
             {
                 authorToUpdate.Id = AuthorId;
                 authorToUpdate.FirstName = AuthorFirstName;
@@ -152,12 +169,13 @@ public class AuthorsVM : VMBase
             author.FirstName = AuthorFirstName;
             author.LastName = AuthorLastName;
             author.BirthDate = AuthorBirthDate;
-            
+
             db.Authors.Add(author);
+            Authors.Add(author);
         }
 
         db.SaveChanges();
-        LoadAuthorsAsync();
+        OnPropertyChanged(nameof(Authors));
         CloseAuthorDetails(obj);
     }
 
@@ -196,8 +214,8 @@ public class AuthorsVM : VMBase
     {
         CurrentAuthor = null;
         AuthorId = 0;
-        AuthorFirstName = null;
-        AuthorLastName = null;
+        AuthorFirstName = string.Empty;
+        AuthorLastName = string.Empty;
         AuthorBirthDate = new DateOnly();
     }
 
