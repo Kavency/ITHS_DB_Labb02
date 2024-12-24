@@ -16,13 +16,7 @@ public partial class Store
 
     public virtual Country Country { get; set; } = null!;
 
-    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
-
     public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
-
-    public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
-
-    public virtual ICollection<Service> Services { get; set; } = new List<Service>();
 
     public virtual ICollection<StoreBook> StoreBooks { get; set; }
 
