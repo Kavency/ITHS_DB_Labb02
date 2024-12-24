@@ -52,10 +52,34 @@
                     <DataGridTextColumn Header="Title "
                                         Binding="{Binding IsbnNavigation.Title}" />
                     <DataGridTextColumn Header="Authors"
-                                        Binding="{Binding IsbnNavigation.Authors.FirstName}" />
-                    <DataGridTextColumn Header="Amount"
-                                        Binding="{Binding Amount}" />
-                    <DataGridTextColumn Header="Action" />
+                                        Binding="{Binding IsbnNavigation.Authors[0].FullName}" />
+                    <DataGridTemplateColumn Header="Amount">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="-"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Width="30"
+                                            Margin="10 5"
+                                            Padding="5"
+                                            Command="{Binding DataContext.StoresVM.DecreaseAmountCMD, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}" />
+                                    <TextBlock Text="{Binding Amount}"
+                                             Width="50"
+                                             Padding="3" />
+                                    <Button Content="+"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Width="30"
+                                            Margin="10 5"
+                                            Padding="5"
+                                            Command="{Binding DataContext.StoresVM.IncreaseAmountCMD,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
