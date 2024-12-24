@@ -16,15 +16,11 @@ public partial class TheBookNookDbContext : DbContext
 
     public virtual DbSet<Country> Countries { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
-
     public virtual DbSet<Format> Formats { get; set; }
 
     public virtual DbSet<Genre> Genres { get; set; }
 
     public virtual DbSet<Language> Languages { get; set; }
-
-    public virtual DbSet<Service> Services { get; set; }
 
     public virtual DbSet<Stock> Stocks { get; set; }
 
@@ -102,42 +98,6 @@ public partial class TheBookNookDbContext : DbContext
                 .HasColumnName("Country");
         });
 
-        modelBuilder.Entity<Customer>(entity =>
-        {
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.City).HasMaxLength(50);
-            entity.Property(e => e.CountryId).HasColumnName("CountryID");
-            entity.Property(e => e.Email).HasMaxLength(255);
-            entity.Property(e => e.FirstName).HasMaxLength(255);
-            entity.Property(e => e.LastName).HasMaxLength(255);
-            entity.Property(e => e.Phone).HasMaxLength(20);
-            entity.Property(e => e.PostalCode).HasMaxLength(10);
-            entity.Property(e => e.StreetName).HasMaxLength(255);
-
-            entity.HasOne(d => d.Country).WithMany(p => p.Customers)
-                .HasForeignKey(d => d.CountryId)
-                .HasConstraintName("FK_Customers_Countries");
-
-            entity.HasMany(d => d.Stores).WithMany(p => p.Customers)
-                .UsingEntity<Dictionary<string, object>>(
-                    "CustomerStore",
-                    r => r.HasOne<Store>().WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_CustomerStore_Stores"),
-                    l => l.HasOne<Customer>().WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_CustomerStore_Customers"),
-                    j =>
-                    {
-                        j.HasKey("CustomerId", "StoreId");
-                        j.ToTable("CustomerStore");
-                        j.IndexerProperty<int>("CustomerId").HasColumnName("CustomerID");
-                        j.IndexerProperty<int>("StoreId").HasColumnName("StoreID");
-                    });
-        });
-
         modelBuilder.Entity<Format>(entity =>
         {
             entity.Property(e => e.Id).HasColumnName("ID");
@@ -166,16 +126,6 @@ public partial class TheBookNookDbContext : DbContext
             entity.Property(e => e.Language1)
                 .HasMaxLength(255)
                 .HasColumnName("Language");
-        });
-
-        modelBuilder.Entity<Service>(entity =>
-        {
-            entity.HasIndex(e => e.Service1, "UQ_Services").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Service1)
-                .HasMaxLength(50)
-                .HasColumnName("Service");
         });
 
         modelBuilder.Entity<Stock>(entity =>
@@ -210,25 +160,6 @@ public partial class TheBookNookDbContext : DbContext
                 .HasForeignKey(d => d.CountryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Stores_Countries");
-
-            entity.HasMany(d => d.Services).WithMany(p => p.Stores)
-                .UsingEntity<Dictionary<string, object>>(
-                    "StoreService",
-                    r => r.HasOne<Service>().WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_StoreService_Services"),
-                    l => l.HasOne<Store>().WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_StoreService_Stores"),
-                    j =>
-                    {
-                        j.HasKey("StoreId", "ServiceId");
-                        j.ToTable("StoreService");
-                        j.IndexerProperty<int>("StoreId").HasColumnName("StoreID");
-                        j.IndexerProperty<int>("ServiceId").HasColumnName("ServiceID");
-                    });
         });
 
         modelBuilder.Entity<AuthorBook>()
