@@ -122,12 +122,17 @@ public class AuthorsVM : VMBase
                     .ToList();
 
                 // Get and remove all entries in AuthorBook table.
-                foreach (var item in books)
+                foreach (var book in books)
                 {
-                    var authorBooks = db.AuthorBook.Where(ab => ab.AuthorId == authorToDelete.Id && ab.BookIsbn == item.Isbn).ToList();
+                    var authorBooks = db.AuthorBook.Where(ab => ab.AuthorId == authorToDelete.Id && ab.BookIsbn == book.Isbn).ToList();
                     db.RemoveRange(authorBooks);
                 }
                 db.SaveChanges();
+
+                foreach(var book in books)
+                {
+                    MainWindowVM.BooksVM.Books.Remove(book);
+                }
 
                 db.RemoveRange(books);
                 db.SaveChanges();
@@ -141,7 +146,7 @@ public class AuthorsVM : VMBase
             }
         }
 
-        OnPropertyChanged(nameof(Authors));
+        LoadAuthorsAsync();
         OnPropertyChanged(nameof(MainWindowVM.BooksVM.Books));
         CloseAuthorDetails(obj);
     }
