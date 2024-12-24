@@ -13,8 +13,7 @@ namespace TheBookNook_WPF.ViewModel
         private ObservableCollection<Genre>? _genres;
         private ObservableCollection<Format>? _formats;
         private ObservableCollection<Language>? _languages;
-        private Visibility _addBookVisibility = Visibility.Hidden;
-        private Visibility _editBookVisibility = Visibility.Hidden;
+        private Visibility _bookDetailsVisibility = Visibility.Hidden;
         private Visibility _editButtonVisibility = Visibility.Hidden;
         private Visibility _deleteButtonVisibility = Visibility.Hidden;
         private Author _author;
@@ -25,9 +24,9 @@ namespace TheBookNook_WPF.ViewModel
         private string _isbn;
         private string _price;
         private string _title;
-        private string _language;
-        private string _genre;
-        private string _format;
+        private Language _language;
+        private Genre _genre;
+        private Format _format;
         #endregion
 
 
@@ -41,15 +40,14 @@ namespace TheBookNook_WPF.ViewModel
         public string Isbn { get => _isbn; set { _isbn = value; OnPropertyChanged(); } }
         public string Price { get => _price; set { _price = value; OnPropertyChanged(); } }
         public string Title { get => _title; set { _title = value; OnPropertyChanged(); } }
-        public string Language { get => _language; set { _language = value; OnPropertyChanged(); } }
-        public string Genre { get => _genre; set { _genre = value; OnPropertyChanged(); } }
-        public string Format { get => _format; set { _format = value; OnPropertyChanged(); } }
+        public Language Language { get => _language; set { _language = value; OnPropertyChanged(); } }
+        public Genre Genre { get => _genre; set { _genre = value; OnPropertyChanged(); } }
+        public Format Format { get => _format; set { _format = value; OnPropertyChanged(); } }
         public ObservableCollection<Book>? Books { get => _books; private set { _books = value; OnPropertyChanged(); } }
         public ObservableCollection<Genre>? Genres { get => _genres; set { _genres = value; OnPropertyChanged(); } }
         public ObservableCollection<Format>? Formats { get => _formats; set { _formats = value; OnPropertyChanged(); } }
         public ObservableCollection<Language>? Languages { get => _languages; set { _languages = value; OnPropertyChanged(); } }
-        public Visibility AddBookVisibility { get => _addBookVisibility; set { _addBookVisibility = value; OnPropertyChanged(); } }
-        public Visibility EditBookVisibility { get => _editBookVisibility; set { _editBookVisibility = value; OnPropertyChanged(); } }
+        public Visibility BookDetailsVisibility { get => _bookDetailsVisibility; set { _bookDetailsVisibility = value; OnPropertyChanged(); } }
         public Visibility EditButtonVisibility { get => _editButtonVisibility; set { _editButtonVisibility = value; OnPropertyChanged(); } }
         public Visibility DeleteButtonVisibility { get => _deleteButtonVisibility; set { _deleteButtonVisibility = value; OnPropertyChanged(); } }
         public RelayCommand OpenBookDetailsCMD { get; }
@@ -108,7 +106,7 @@ namespace TheBookNook_WPF.ViewModel
 
         private void OpenBookDetails(object obj)
         {
-            BookDetailsVisibility(true);
+            ShowBookDetails(true);
 
             if(CurrentBook != null && obj as string == "EditBTN")
             {
@@ -119,24 +117,16 @@ namespace TheBookNook_WPF.ViewModel
                 Author = CurrentBook.Authors.FirstOrDefault();
                 AuthorName = CurrentBook.Authors.FirstOrDefault().FullName;
                 ReleaseDate = CurrentBook.ReleaseDate;
-                Language = CurrentBook.Language.Language1;
-                Format = CurrentBook.Format.Format1;
-                Genre = CurrentBook.Genre.Genre1;
+                Language = CurrentBook.Language;
+                Format = CurrentBook.Format;
+                Genre = CurrentBook.Genre;
                 Price = CurrentBook.Price.ToString();
             }
             else
             {
                 BookDetailsHeader = "ADD BOOK";
                 IsbnFieldEnabled = true;
-                Isbn = string.Empty;
-                Title = string.Empty;
-                Author = new Author();
-                AuthorName = string.Empty;
-                ReleaseDate = new DateOnly();
-                Language = string.Empty;
-                Format = string.Empty;
-                Genre = string.Empty;
-                Price = string.Empty;
+                ResetBookProperties();
             }
         }
 
@@ -145,7 +135,8 @@ namespace TheBookNook_WPF.ViewModel
         {
             using var db = new TheBookNookDbContext();
 
-            if(CurrentBook != null)
+            #region Update existing book.
+            if (CurrentBook != null)
             {
                 var bookToUpdate = db.Books
                     .Include(b => b.AuthorBooks)
@@ -157,26 +148,41 @@ namespace TheBookNook_WPF.ViewModel
                     db.ChangeTracker.Clear();
                     db.Attach(bookToUpdate);
                    
-                    bookToUpdate.Title = CurrentBook.Title;
-                    bookToUpdate.ReleaseDate = CurrentBook.ReleaseDate;
-                    bookToUpdate.Language = CurrentBook.Language;
-                    bookToUpdate.Format = CurrentBook.Format;
-                    bookToUpdate.Genre = CurrentBook.Genre;
-                    bookToUpdate.Price = CurrentBook.Price;
+                    bookToUpdate.Title = Title;
+                    bookToUpdate.ReleaseDate = ReleaseDate;
+                    bookToUpdate.Language = Language;
+                    bookToUpdate.Format = Format;
+                    bookToUpdate.Genre = Genre;
+                    bookToUpdate.Price = decimal.Parse(Price);
 
                     db.Entry(bookToUpdate).State = EntityState.Modified;
 
-                    var bookAuthors = db.AuthorBook.Where(ab => ab.Isbn == CurrentBook.Isbn).ToList();
+                    var bookAuthors = db.AuthorBook.Where(ab => ab.BookIsbn == CurrentBook.Isbn).ToList();
                     db.AuthorBook.RemoveRange(bookAuthors);
 
-                    var newAuthorBook = new AuthorBook { Isbn = CurrentBook.Isbn, AuthorId = Author.Id };
+                    var newAuthorBook = new AuthorBook { BookIsbn = CurrentBook.Isbn, AuthorId = Author.Id };
                     db.AuthorBook.Add(newAuthorBook);
                 }
             }
+            #endregion
+            #region Add new book.
             else
             {
+                Book newBook = new Book();
+                newBook.Isbn = long.Parse(Isbn);
+                newBook.Title = Title;
+                newBook.ReleaseDate = ReleaseDate;
+                newBook.LanguageId = Language.Id;
+                newBook.FormatId = Format.Id;
+                newBook.GenreId = Genre.Id;
+                newBook.Price = decimal.Parse(Price);
 
+                db.Books.Add(newBook);
+                
+                var bookAuthors = new AuthorBook { AuthorId = Author.Id, BookIsbn = newBook.Isbn };
+                db.AuthorBook.Add(bookAuthors);
             }
+            #endregion
 
             db.SaveChanges();
             LoadDataAsync();
@@ -189,13 +195,21 @@ namespace TheBookNook_WPF.ViewModel
             using var db = new TheBookNookDbContext();
             var bookToDelete = db.Books.SingleOrDefault(x => x.Isbn == CurrentBook.Isbn);
 
-            var confirm = MessageBox.Show($"Du you want to delete {CurrentBook.Title}", "Confirm deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var confirm = MessageBox.Show($"Du you want to delete {CurrentBook.Title}?", "Confirm deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (confirm == MessageBoxResult.Yes)
             {
                 if (bookToDelete != null)
                 {
-                    db.Books.Remove(CurrentBook);
+                    var bookAuthors = db.AuthorBook.Where(ab => ab.BookIsbn == bookToDelete.Isbn).ToList();
+                    db.AuthorBook.RemoveRange(bookAuthors);
+                    db.SaveChanges();
+
+                    var booksInStock = db.Stocks.Where(sb => sb.Isbn == bookToDelete.Isbn).ToList();
+                    db.Stocks.RemoveRange(booksInStock);
+                    db.SaveChanges();
+
+                    db.Books.Remove(bookToDelete);
                     db.SaveChanges();
                 }
                 else
@@ -209,9 +223,10 @@ namespace TheBookNook_WPF.ViewModel
         }
 
 
+
         private void CloseBookDetails(object obj)
         {
-            BookDetailsVisibility(false);
+            ShowBookDetails(false);
             ResetBookProperties();
         }
 
@@ -220,25 +235,27 @@ namespace TheBookNook_WPF.ViewModel
         {
             CurrentBook = null;
             Isbn = string.Empty;
-            AuthorName = string.Empty;
             Title = string.Empty;
+            Author = new Author();
+            AuthorName = string.Empty;
             ReleaseDate = new DateOnly();
-            Language = string.Empty;
-            Format = string.Empty;
-            Genre = string.Empty;
+            Language = new Language();
+            Format = new Format();
+            Genre = new Genre();
+            Price = string.Empty;
         }
 
 
-        private void BookDetailsVisibility(bool visible)
+        private void ShowBookDetails(bool visible)
         {
             if (visible)
             {
-                AddBookVisibility = Visibility.Visible;
+                BookDetailsVisibility = Visibility.Visible;
                 MainWindowVM.SideMenuIsEnabled = false;
             }
             else
             {
-                AddBookVisibility = Visibility.Hidden;
+                BookDetailsVisibility = Visibility.Hidden;
                 MainWindowVM.SideMenuIsEnabled = true;
             }
         }
