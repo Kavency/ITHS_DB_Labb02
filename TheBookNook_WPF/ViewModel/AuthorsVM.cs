@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.Windows;
+using TheBookNook_WPF.Core;
 using TheBookNook_WPF.Model;
 
 namespace TheBookNook_WPF.ViewModel;

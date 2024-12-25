@@ -1,13 +1,13 @@
 ﻿using System.Windows.Input;
 
-namespace TheBookNook_WPF.ViewModel
+namespace TheBookNook_WPF.Core
 {
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _executeCommand;
-        private readonly Func<object,bool> _canExecuteCommand;
+        private readonly Func<object, bool> _canExecuteCommand;
 
-        public RelayCommand(Action<object> executeCommand, Func<object,bool> canExecuteCommand = null)
+        public RelayCommand(Action<object> executeCommand, Func<object, bool> canExecuteCommand = null)
         {
             _executeCommand = executeCommand;
             _canExecuteCommand = canExecuteCommand;
