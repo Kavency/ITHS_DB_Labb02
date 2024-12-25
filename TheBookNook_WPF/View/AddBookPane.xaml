@@ -4,10 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TheBookNook_WPF.View"
+             xmlns:rules="clr-namespace:TheBookNook_WPF.ValidationRules"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="300"
              x:Name="NewBookPane">
+    <UserControl.Resources>
+        <rules:IsbnValidation x:Key="IsbnValidation" />
+        <converters:ValidationToBoolConverter x:Key="ValidationToBoolConverter" />
+    </UserControl.Resources>
+
     <Border Background="#2F4550"
             BorderThickness="2"
             CornerRadius="20"
@@ -103,20 +109,40 @@
                            VerticalAlignment="Center"
                            Foreground="#F4F4F9" />
 
-                <TextBox x:Name="IsbnTextBox"
+                <TextBox Name="IsbnTextBox"
                          Grid.Column="1"
                          Grid.Row="1"
                          Margin="0 3"
                          VerticalAlignment="Center"
-                         IsEnabled="{Binding BooksVM.IsbnFieldEnabled}"
-                         Text="{Binding BooksVM.Isbn}" />
+                         IsEnabled="{Binding BooksVM.IsbnFieldEnabled}">
+                    <TextBox.Text>
+                        <Binding Path="BooksVM.Isbn"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rules:IsbnValidation />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBlock Foreground="Red"
+                           FontSize="10"
+                           Grid.Column="1"
+                           Grid.Row="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="0 32 0 0">
+                    <TextBlock.Text>
+                        <Binding ElementName="IsbnTextBox"
+                                 Path="(Validation.Errors)[0].ErrorContent" />
+                    </TextBlock.Text>
+                </TextBlock>
 
                 <TextBox x:Name="TitleTextBox"
                          Grid.Column="1"
                          Grid.Row="2"
                          VerticalAlignment="Center"
                          Margin="0 3"
-                         Text="{Binding BooksVM.Title}"/>
+                         Text="{Binding BooksVM.Title}" />
 
                 <ComboBox x:Name="AuthorComboBox"
                           Grid.Column="1"
