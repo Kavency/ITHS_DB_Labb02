@@ -62,7 +62,7 @@
             <!-- Sidebar -->
             <Grid Grid.Column="0"
                   Grid.RowSpan="2"
-                  IsEnabled="{Binding SideMenuIsEnabled}">
+                  IsEnabled="{Binding IsSideMenuEnabled}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
                     <RowDefinition Height="*" />
@@ -202,6 +202,7 @@
                 <!-- Main area views -->
                 <ContentControl Grid.Column="1"
                                 Grid.Row="2"
+                                IsEnabled="{Binding IsBackGroundEnabled}"
                                 Content="{Binding CurrentView, Mode=TwoWay}" />
 
                 <views:AddBookPane Grid.Column="1"
