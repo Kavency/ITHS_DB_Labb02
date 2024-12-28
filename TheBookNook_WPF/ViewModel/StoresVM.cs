@@ -12,6 +12,8 @@ namespace TheBookNook_WPF.ViewModel
         private MainWindowVM _mainWindowVM;
         private ObservableCollection<Store>? _stores;
         private IEnumerable<Stock> _selectedStoreStock;
+        private Visibility _addButtonVisibility = Visibility.Hidden;
+        private Visibility _addToStockPaneVisibility = Visibility.Hidden;
         private Store? _selectedStore;
         private Stock _selectedRow;
         #endregion
@@ -20,6 +22,8 @@ namespace TheBookNook_WPF.ViewModel
         public RelayCommand DecreaseAmountCMD { get; }
         public RelayCommand IncreaseAmountCMD { get; }
         public ObservableCollection<Store>? Stores { get => _stores; private set { _stores = value; OnPropertyChanged(); } }
+        public Visibility AddButtonVisibility { get => _addButtonVisibility; set { _addButtonVisibility = value; OnPropertyChanged(); } }
+        public Visibility AddToStockPaneVisibility { get => _addToStockPaneVisibility; set { _addToStockPaneVisibility = value; OnPropertyChanged(); } }
         public Stock SelectedRow 
         { 
             get => _selectedRow; 
