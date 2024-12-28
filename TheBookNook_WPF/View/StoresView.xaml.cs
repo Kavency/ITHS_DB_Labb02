@@ -1,28 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace TheBookNook_WPF.View
+namespace TheBookNook_WPF.View;
+
+public partial class StoresView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for StoresView.xaml
-    /// </summary>
-    public partial class StoresView : UserControl
+    public StoresView()
     {
-        public StoresView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        this.DataContext = ((MainWindow)Application.Current.MainWindow).DataContext;
     }
 }
