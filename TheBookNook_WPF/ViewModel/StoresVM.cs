@@ -115,6 +115,36 @@ namespace TheBookNook_WPF.ViewModel
             Books = books;
         }
 
+
+        private void SaveToStock(object obj)
+        {
+            using var db = new TheBookNookDbContext();
+            
+            var bookExists = db.Stocks.Any(s => s.Isbn == SelectedBook.Isbn && s.StoreId == SelectedStore.Id);
+
+            if (bookExists)
+            {
+                var stock = db.Stocks.FirstOrDefault(s => s.StoreId == SelectedStore.Id && s.Isbn == SelectedBook.Isbn);
+                stock.Amount += NumberOfBooksToAdd;
+                db.SaveChanges();
+            }
+            else
+            {
+                Stock newStock = new Stock();
+
+                newStock.Isbn = SelectedBook.Isbn;
+                newStock.StoreId = SelectedStore.Id;
+                newStock.Amount = NumberOfBooksToAdd;
+                db.Stocks.Add(newStock);
+                db.SaveChanges();
+                
+                newStock.IsbnNavigation = SelectedBook;
+                SelectedStoreStock.Add(newStock);
+            }
+
+            OpenAddToStockPane(false);
+        }
+
         private void CloseAddToStockPane(object obj)
         {
             AddToStockPaneVisibility = Visibility.Hidden;
