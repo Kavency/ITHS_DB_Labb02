@@ -8,12 +8,7 @@
              d:DesignHeight="400"
              d:DesignWidth="300"
              x:Name="NewBookPane">
-    <Border Background="#2F4550"
-            BorderThickness="2"
-            CornerRadius="20"
-            Margin="-5"
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch">
+    
         <Border Background="#2F4550"
                 BorderBrush="#F2AF0D"
                 BorderThickness="2"
@@ -106,5 +101,4 @@
 
             </Grid>
         </Border>
-    </Border>
 </UserControl>
