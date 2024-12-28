@@ -1,4 +1,6 @@
-﻿namespace TheBookNook_WPF.Model;
+﻿using System.Collections.ObjectModel;
+
+namespace TheBookNook_WPF.Model;
 
 public partial class Store
 {
@@ -16,7 +18,7 @@ public partial class Store
 
     public virtual Country Country { get; set; } = null!;
 
-    public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
+    public virtual ObservableCollection<Stock> Stocks { get; set; } = new ObservableCollection<Stock>();
 
     public virtual ICollection<StoreBook> StoreBooks { get; set; }
 
