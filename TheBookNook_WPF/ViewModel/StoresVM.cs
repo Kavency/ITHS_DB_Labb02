@@ -108,6 +108,14 @@ namespace TheBookNook_WPF.ViewModel
         }
 
 
+        private async void AddToStock(object obj)
+        {
+            OpenAddToStockPane(true);
+            var books = await Task.Run(() => GetBooksFromDatabase());
+            Books = books;
+        }
+
+
         private void IncreaseAmount(object obj)
         {
             var stockItem = obj as Stock;
