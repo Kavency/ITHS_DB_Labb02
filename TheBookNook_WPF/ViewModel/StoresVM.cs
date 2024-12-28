@@ -77,10 +77,10 @@ namespace TheBookNook_WPF.ViewModel
         #region Methods
         private async void LoadStoresAsync()
         {
-            var data = await Task.Run(() => GetDataFromDatabase());
+            var stores = await Task.Run(() => GetStoresFromDatabase());
 
-            Stores = data;
-            //OnPropertyChanged(nameof(Stores));
+            Stores = stores;
+            OnPropertyChanged(nameof(SelectedStore));
         }
 
 
