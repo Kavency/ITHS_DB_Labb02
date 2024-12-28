@@ -212,6 +212,8 @@ namespace TheBookNook_WPF.ViewModel
 
                     db.Books.Remove(bookToDelete);
                     db.SaveChanges();
+
+                    OnPropertyChanged(nameof(MainWindowVM.StoresVM.Stores));
                 }
                 else
                 {
@@ -252,12 +254,14 @@ namespace TheBookNook_WPF.ViewModel
             if (visible)
             {
                 BookDetailsVisibility = Visibility.Visible;
-                MainWindowVM.SideMenuIsEnabled = false;
+                MainWindowVM.IsSideMenuEnabled = false;
+                MainWindowVM.IsBackGroundEnabled = false;
             }
             else
             {
                 BookDetailsVisibility = Visibility.Hidden;
-                MainWindowVM.SideMenuIsEnabled = true;
+                MainWindowVM.IsSideMenuEnabled = true;
+                MainWindowVM.IsBackGroundEnabled = true;
             }
         }
 

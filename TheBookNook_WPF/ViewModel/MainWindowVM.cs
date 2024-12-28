@@ -6,13 +6,15 @@ namespace TheBookNook_WPF.ViewModel
     {
         #region Fields
         private object _currentView;
-        private bool _sideMenuIsEnabled = true;
+        private bool _isSideMenuEnabled = true;
+        private bool _isBackGroundEnabled = true;
         #endregion
 
 
         #region Properties
         public object CurrentView { get { return _currentView; } set { _currentView = value; OnPropertyChanged(); } }
-        public bool SideMenuIsEnabled { get => _sideMenuIsEnabled; set { _sideMenuIsEnabled = value; OnPropertyChanged(); } }
+        public bool IsSideMenuEnabled { get => _isSideMenuEnabled; set { _isSideMenuEnabled = value; OnPropertyChanged(); } }
+        public bool IsBackGroundEnabled { get => _isBackGroundEnabled; set { _isBackGroundEnabled = value; OnPropertyChanged(); } }
         public HomeVM HomeVM { get; set; }
         public BooksVM BooksVM { get; set; }
         public AuthorsVM AuthorsVM { get; set; }

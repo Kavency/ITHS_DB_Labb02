@@ -191,12 +191,14 @@ public class AuthorsVM : VMBase
         if (visible)
         {
             AuthorDetailsVisibility = Visibility.Visible;
-            MainWindowVM.SideMenuIsEnabled = false;
+            MainWindowVM.IsSideMenuEnabled = false;
+            MainWindowVM.IsBackGroundEnabled = false;
         }
         else
         {
             AuthorDetailsVisibility = Visibility.Hidden;
-            MainWindowVM.SideMenuIsEnabled = true;
+            MainWindowVM.IsSideMenuEnabled = true;
+            MainWindowVM.IsBackGroundEnabled = true;
         }
     }
 

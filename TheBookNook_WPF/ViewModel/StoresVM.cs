@@ -153,13 +153,16 @@ namespace TheBookNook_WPF.ViewModel
             }
 
             OpenAddToStockPane(false);
+
+            NumberOfBooksToAdd = 0;
         }
+
 
         private void CloseAddToStockPane(object obj)
         {
-            AddToStockPaneVisibility = Visibility.Hidden;
-            _mainWindowVM.SideMenuIsEnabled = true;
+            OpenAddToStockPane(false);
         }
+
 
         private void IncreaseAmount(object obj)
         {
@@ -172,6 +175,7 @@ namespace TheBookNook_WPF.ViewModel
             newStockAmount.Amount = stockItem.Amount;
             db.SaveChanges();
 
+            OnPropertyChanged(nameof(SelectedRow.Amount));
         }
 
 
@@ -187,6 +191,8 @@ namespace TheBookNook_WPF.ViewModel
             var newStockAmount = db.Stocks.Where(s => s.StoreId == stockItem.StoreId && s.Isbn == stockItem.Isbn).SingleOrDefault();
             newStockAmount.Amount = stockItem.Amount;
             db.SaveChanges();
+
+            OnPropertyChanged(nameof(SelectedRow.Amount));
         }
 
 
@@ -195,12 +201,14 @@ namespace TheBookNook_WPF.ViewModel
             if (visible)
             {
                 AddToStockPaneVisibility = Visibility.Visible;
-                _mainWindowVM.SideMenuIsEnabled = false;
+                _mainWindowVM.IsBackGroundEnabled = false;
+                _mainWindowVM.IsSideMenuEnabled = false;
             }
             else
             {
                 AddToStockPaneVisibility = Visibility.Hidden;
-                _mainWindowVM.SideMenuIsEnabled = true;
+                _mainWindowVM.IsBackGroundEnabled = true;
+                _mainWindowVM.IsSideMenuEnabled = true;
             }
         }
         #endregion
