@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="Resources\LoginBackGround.jpeg" />
     <None Remove="Resources\Logo.png" />
+    <None Remove="View\Logo.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -20,13 +20,15 @@
                        Foreground="#F4F4F9"
                        DockPanel.Dock="left" />
             <Button Style="{StaticResource addEditRecordButton}"
-                    DockPanel.Dock="Right">
+                    DockPanel.Dock="Right"
+                    Command="{Binding StoresVM.AddToStockCMD}"
+                    Visibility="{Binding StoresVM.AddButtonVisibility}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="Plus"
                                   Width="11"
                                   Height="11"
-                                  Margin="0, 0, 8, 0" />
-                    <TextBlock Text="Add record" />
+                                  Margin="0, 0, 4, 0" />
+                    <TextBlock Text="Add to stock" />
                 </StackPanel>
             </Button>
         </DockPanel>
@@ -82,7 +84,7 @@
                                             Width="30"
                                             Margin="10 5"
                                             Padding="5"
-                                            Command="{Binding DataContext.StoresVM.IncreaseAmountCMD,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            Command="{Binding DataContext.StoresVM.IncreaseAmountCMD, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                             CommandParameter="{Binding}"/>
                                 </StackPanel>
                             </DataTemplate>
