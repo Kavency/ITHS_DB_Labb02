@@ -115,6 +115,11 @@ namespace TheBookNook_WPF.ViewModel
             Books = books;
         }
 
+        private void CloseAddToStockPane(object obj)
+        {
+            AddToStockPaneVisibility = Visibility.Hidden;
+            _mainWindowVM.SideMenuIsEnabled = true;
+        }
 
         private void IncreaseAmount(object obj)
         {
