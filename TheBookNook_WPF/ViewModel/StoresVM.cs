@@ -19,8 +19,12 @@ namespace TheBookNook_WPF.ViewModel
         #endregion
 
         #region Properties
+        public RelayCommand AddToStockCMD { get; }
         public RelayCommand DecreaseAmountCMD { get; }
         public RelayCommand IncreaseAmountCMD { get; }
+        public RelayCommand SaveToStockCMD { get; }
+        public RelayCommand CloseAddToStockButtonCMD { get; }
+
         public ObservableCollection<Store>? Stores { get => _stores; private set { _stores = value; OnPropertyChanged(); } }
         public Visibility AddButtonVisibility { get => _addButtonVisibility; set { _addButtonVisibility = value; OnPropertyChanged(); } }
         public Visibility AddToStockPaneVisibility { get => _addToStockPaneVisibility; set { _addToStockPaneVisibility = value; OnPropertyChanged(); } }
@@ -60,8 +64,11 @@ namespace TheBookNook_WPF.ViewModel
         {
             _mainWindowVM = mainWindowVM;
 
+            AddToStockCMD = new RelayCommand(AddToStock);
             DecreaseAmountCMD = new RelayCommand(DecreaseAmount);
             IncreaseAmountCMD = new RelayCommand(IncreaseAmount);
+            SaveToStockCMD = new RelayCommand(SaveToStock);
+            CloseAddToStockButtonCMD = new RelayCommand(CloseAddToStockPane);
 
             LoadStoresAsync();
         }
