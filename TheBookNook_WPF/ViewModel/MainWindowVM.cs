@@ -46,6 +46,7 @@ namespace TheBookNook_WPF.ViewModel
             BooksVM.CurrentBook = null;
             AuthorsVM.CurrentAuthor = null;
             StoresVM.SelectedStore = null;
+            StoresVM.SelectedStoreStock = null;
         }
         #endregion
     }
