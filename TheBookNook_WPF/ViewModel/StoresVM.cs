@@ -98,6 +98,16 @@ namespace TheBookNook_WPF.ViewModel
         }
 
 
+        private ObservableCollection<Book> GetBooksFromDatabase()
+        {
+            using var db = new TheBookNookDbContext();
+            var books = new ObservableCollection<Book>(
+                db.Books.Include(b => b.Authors).ToList());
+
+            return books;
+        }
+
+
         private void IncreaseAmount(object obj)
         {
             var stockItem = obj as Stock;
