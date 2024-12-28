@@ -84,7 +84,7 @@ namespace TheBookNook_WPF.ViewModel
         }
 
 
-        private ObservableCollection<Store> GetDataFromDatabase()
+        private ObservableCollection<Store> GetStoresFromDatabase()
         {
             using var db = new TheBookNookDbContext();
             var stores = new ObservableCollection<Store>(
