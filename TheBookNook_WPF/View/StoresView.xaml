@@ -52,6 +52,7 @@
                       IsReadOnly="True"
                       AutoGenerateColumns="False"
                       ColumnWidth="auto"
+                      MaxHeight="500"
                       AlternatingRowBackground="AliceBlue"
                       ItemsSource="{Binding StoresVM.SelectedStoreStock}"
                       SelectedItem="{Binding StoresVM.SelectedRow}"

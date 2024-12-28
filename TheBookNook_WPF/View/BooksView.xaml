@@ -63,6 +63,7 @@
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
                   AlternatingRowBackground="AliceBlue"
+                  MaxHeight="500"
                   ItemsSource="{Binding Books}"
                   SelectedItem="{Binding CurrentBook}">
             <DataGrid.Columns>
@@ -80,7 +81,7 @@
                                     Binding="{Binding Genre.Genre1}" />
                 <DataGridTextColumn Header="Format"
                                     Binding="{Binding Format.Format1}"/>
-                <DataGridTextColumn Header="Languag"
+                <DataGridTextColumn Header="Language"
                                     Binding="{Binding Language.Language1}" />
             </DataGrid.Columns>
         </DataGrid>

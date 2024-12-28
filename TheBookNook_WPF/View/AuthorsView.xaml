@@ -60,7 +60,7 @@
                   AutoGenerateColumns="False"
                   AlternatingRowBackground="AliceBlue"
                   ColumnWidth="auto"
-                  VerticalScrollBarVisibility="Visible"
+                  MaxHeight="500"
                   ItemsSource="{Binding Authors}"
                   SelectedItem="{Binding CurrentAuthor}">
             <DataGrid.Columns>
