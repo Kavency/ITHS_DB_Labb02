@@ -114,6 +114,21 @@ namespace TheBookNook_WPF.ViewModel
             newStockAmount.Amount = stockItem.Amount;
             db.SaveChanges();
         }
+
+
+        private void OpenAddToStockPane(bool visible)
+        {
+            if (visible)
+            {
+                AddToStockPaneVisibility = Visibility.Visible;
+                _mainWindowVM.SideMenuIsEnabled = false;
+            }
+            else
+            {
+                AddToStockPaneVisibility = Visibility.Hidden;
+                _mainWindowVM.SideMenuIsEnabled = true;
+            }
+        }
         #endregion
     }
 }
