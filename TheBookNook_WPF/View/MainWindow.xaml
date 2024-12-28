@@ -14,7 +14,8 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        Icon="/Resources/Logo.png">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
         <Storyboard x:Key="AddPaneSwipe">
@@ -208,8 +209,12 @@
                                    Visibility="{Binding BooksVM.BookDetailsVisibility}" />
 
                 <views:AuthorDetailsPane Grid.Column="1"
-                                     Grid.Row="2"
-                                     Visibility="{Binding AuthorsVM.AuthorDetailsVisibility}" />
+                                         Grid.Row="2"
+                                         Visibility="{Binding AuthorsVM.AuthorDetailsVisibility}" />
+
+                <views:AddToStockPane Grid.Column="1"
+                                      Grid.Row="2"
+                                      Visibility="{Binding StoresVM.AddToStockPaneVisibility}" />
 
             </Grid>
         </Grid>
