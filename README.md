@@ -1,4 +1,4 @@
-# The Book Nook app
+# The Book Nook.
 
 ## A fictional book store.
 ![Skärmbild 2024-12-28 195906](https://github.com/user-attachments/assets/c3cd1193-0fd8-4795-adb5-743a54c632bd)
